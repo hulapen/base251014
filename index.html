@@ -4,70 +4,103 @@
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width,initial-scale=1.0" />
 		<title>ショップタイトル | BASE</title>
-		<link rel="stylesheet" href="/assets/css/style.css" />
+		<link rel="stylesheet" href="/css/style.css" />
 	</head>
+
 	<body>
-		<header class="header">
+		<header class="site-header">
+			<div class="header__logo">
+				<a href="/"><img src="{{ 'logomark.png' | asset_url }}"></a>
+			</div>
 			<div class="header__inner">
-				<h1 class="header__logo">
-					<a href="/">ショップタイトル</a>
+				<h1 class="header__title">
+					<a href="/"><img src="{{ 'logo.png' | asset_url }}"></a>
 				</h1>
-				<nav class="header__nav">
+				<nav class="site-nav">
 					<ul>
-						<li><a href="/items">商品一覧</a></li>
-						<li><a href="/contact">お問い合わせ</a></li>
-						<li><a href="/about">ショップについて</a></li>
-						<li><a href="/cart">カート</a></li>
+						<li><a href="/items">オンラインショップ</a></li>
+						<li><a href="/contact">店舗案内</a></li>
 					</ul>
 				</nav>
 			</div>
+			<nav class="header__sns">
+				<ul>
+					<li><a href="/items"><img src="{{ 'logo.png' | asset_url }}"></a></li>
+					<li><a href="/items"><img src="{{ 'logo.png' | asset_url }}"></a></li>
+					<li><a href="/contact"><img src="{{ 'logo.png' | asset_url }}"></a></li>
+				</ul>
+			</nav>
 		</header>
 
-		<main>
+		<div class="contents">
 			<section class="kv">
-				<img src="/assets/img/kv.jpg" alt="メインビジュアル" />
+				<div class="swiper">
+					<div class="swiper-wrapper">
+						<div class="swiper-slide">
+							<img src="{{ 'kv01.jpg' | asset_url }}" alt="メインビジュアル1">
+						</div>
+						<div class="swiper-slide">
+							<img src="{{ 'kv02.jpg' | asset_url }}" alt="メインビジュアル2">
+						</div>
+						<div class="swiper-slide">
+							<img src="{{ 'kv03.jpg' | asset_url }}" alt="メインビジュアル3">
+						</div>
+					</div>
+					<!-- ナビゲーション（必要に応じて） -->
+					<div class="swiper-pagination"></div>
+					<div class="swiper-button-prev"></div>
+					<div class="swiper-button-next"></div>
+				</div>
 			</section>
 
-			<section class="intro">
-				<h2 class="section-title">ショップについて</h2>
-				<p>ここにショップの紹介文が入ります。</p>
-			</section>
+			<main class="main">
+				<section class="intro">
+					<h2 class="section-title">ショップについて</h2>
+					<p>ここにショップの紹介文が入ります。</p>
+				</section>
 
-			<section class="products">
-				<h2 class="section-title">おすすめ商品</h2>
-				<ul class="product-list">
-					<li class="product-item">
-						<a href="/items/1">
-							<img src="/assets/img/item1.jpg" alt="商品1" />
-							<p class="product-name">商品名1</p>
-							<p class="product-price">¥2,000</p>
-						</a>
-					</li>
-					<li class="product-item">
-						<a href="/items/2">
-							<img src="/assets/img/item2.jpg" alt="商品2" />
-							<p class="product-name">商品名2</p>
-							<p class="product-price">¥3,000</p>
-						</a>
-					</li>
-				</ul>
-			</section>
+				<section class="products">
+					<div class="products__inner">
+						<h2 class="section-title">おすすめ商品</h2>
+						<ul class="product-list">
+							{% for item in items limit: 8 %}
+							<li class="product-item">
+								<a href="{{ item.url }}">
+									<img src="{{ item.main_image | img_url: '600x600' }}" alt="{{ item.name }}">
+									<p class="product-name">{{ item.name }}</p>
+									<p class="product-price">¥{{ item.price | number_with_delimiter }}</p>
+								</a>
+							</li>
+							{% endfor %}
+						</ul>
+						<div class="view-all">
+							<a href="/items" class="btn-cart">すべての商品を見る</a>
+						</div>
+					</div>
+				</section>
 
-			<section class="info">
-				<h2 class="section-title">お知らせ</h2>
-				<ul class="info-list">
-					<li><a href="/blog/1">新商品を追加しました！</a></li>
-					<li><a href="/blog/2">営業時間変更のお知らせ</a></li>
-				</ul>
-			</section>
-		</main>
+				<section class="info">
+					<div class="info__inner">
+						<h2 class="section-title">お知らせ</h2>
+						<ul class="info-list">
+							{% for blog in blogs limit: 3 %}
+							<li><a href="{{ blog.url }}">{{ blog.title }}</a></li>
+							{% endfor %}
+						</ul>
+						<div class="view-all">
+							<a href="/blogs" class="btn-cart">もっと見る</a>
+						</div>
+					</div>
+				</section>
+			</main>
+		</div>
 
-		<footer class="footer">
+			<footer class="footer">
 			<div class="footer__inner">
 				<small>© 2025 ショップタイトル All Rights Reserved.</small>
 			</div>
 		</footer>
 
-		<script src="/assets/js/script.js"></script>
+		<script src="/js/script.js"></script>
 	</body>
 </html>
