@@ -1,0 +1,30 @@
+{% extends 'layout' %}
+
+{% block content %}
+<article class="item-detail">
+  <div class="item-detail__inner">
+    <h1 class="item-detail__title">{{ item.name }}</h1>
+
+    <div class="item-detail__image">
+      <img src="{{ item.main_image | img_url: '800x800' }}" alt="{{ item.name }}">
+    </div>
+
+    <div class="item-detail__info">
+      <p class="item-detail__price">¥{{ item.price | number_with_delimiter }}</p>
+
+      {% if item.stock > 0 %}
+        <form action="{{ item.cart_url }}" method="post">
+          <input type="hidden" name="item_id" value="{{ item.id }}">
+          <button type="submit" class="btn-cart">カートに入れる</button>
+        </form>
+      {% else %}
+        <p class="soldout">SOLD OUT</p>
+      {% endif %}
+
+      <div class="item-detail__desc">
+        {{ item.description }}
+      </div>
+    </div>
+  </div>
+</article>
+{% endblock %}

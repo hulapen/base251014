@@ -1,0 +1,21 @@
+{% extends 'layout' %}
+
+{% block content %}
+<section class="contact">
+  <div class="contact__inner">
+    <h1 class="page-title">お問い合わせ</h1>
+    <form action="{{ form_action }}" method="post" class="contact__form">
+      <label>お名前</label>
+      <input type="text" name="name" required>
+
+      <label>メールアドレス</label>
+      <input type="email" name="email" required>
+
+      <label>お問い合わせ内容</label>
+      <textarea name="message" rows="6" required></textarea>
+
+      <button type="submit" class="btn-submit">送信する</button>
+    </form>
+  </div>
+</section>
+{% endblock %}
