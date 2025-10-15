@@ -16,20 +16,33 @@ header {
 	display: flex;
 	height: 120px;
 	border-bottom: 1px solid #707070;
+	position: relative;
 }
 .site-header .header__logo {
 	width: 25%;
 }
+
 .site-header .header__inner {
 	display: flex;
 	margin: 0;
 	padding: 0;
 	width: 50%;
 	min-width: 1000px;
+	vertical-align: bottom;
+}
+.header__inner .header__title {
+	position: relative;
+}
+.header__inner .header__title img {
+	position: absolute;
+	bottom: 10px;
 }
 .header__inner .site-nav {
 	margin: 0;
 	padding: 0;
+	position: relative;
+	left: 400px;
+	height: auto;
 }
 .header__inner .site-nav ul {
 	list-style: none;
