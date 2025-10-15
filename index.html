@@ -37,7 +37,12 @@
 			</nav>
 		</header>
 
+
+
 		<div class="contents">
+
+
+
 			<section class="kv">
 				<div class="swiper">
 					<div class="swiper-wrapper">
@@ -58,54 +63,71 @@
 				</div>
 			</section>
 
+
+
 			<main class="main">
-				<section class="intro">
-					<h2 class="section-title">ショップについて</h2>
-					<p>ここにショップの紹介文が入ります。</p>
-				</section>
+				<div class="left_column">
+					<form action="/search" method="get" class="search_box">
+						<button type="submit"><img src="images/search_i.png"></button>
+						<input type="text" name="q" placeholder="　Search　">
+					</form>
 
-				<section class="products">
-					<div class="products__inner">
-						<h2 class="section-title">おすすめ商品</h2>
-						<ul class="product-list">
-							{% for item in items limit: 8 %}
-							<li class="product-item">
-								<a href="{{ item.url }}">
-									<img src="{{ item.main_image | img_url: '600x600' }}" alt="{{ item.name }}">
-									<p class="product-name">{{ item.name }}</p>
-									<p class="product-price">¥{{ item.price | number_with_delimiter }}</p>
-								</a>
-							</li>
+					<aside class="sidebar">
+						<ul class="category-list">
+							{% for collection in collections %}
+								<li>
+									<a href="#">台所用品</a>
+									<!-- <a href="{{ collection.url }}">{{ collection.name }}</a> -->
+								</li>
+								<li>
+									<a href="#">台所用品</a>
+								</li>
 							{% endfor %}
 						</ul>
-						<div class="view-all">
-							<a href="/items" class="btn-cart">すべての商品を見る</a>
-						</div>
-					</div>
-				</section>
+					</aside>
+				</div>
 
-				<section class="info">
-					<div class="info__inner">
-						<h2 class="section-title">お知らせ</h2>
-						<ul class="info-list">
-							{% for blog in blogs limit: 3 %}
-							<li><a href="{{ blog.url }}">{{ blog.title }}</a></li>
-							{% endfor %}
-						</ul>
-						<div class="view-all">
-							<a href="/blogs" class="btn-cart">もっと見る</a>
+
+
+				<div class="right_column">
+					<section class="products">
+						<div class="products__inner">
+							<h2 class="section-title">Pick Up / New Arrival</h2>
+							<ul class="product-list">
+								<li class="product-item">
+									<a href="#">
+										<img src="{{ item.main_image | img_url: '410x410' }}" alt="{{ item.name }}">
+										<p class="product-name">{{ item.name }}</p>
+										<p class="product-price">¥{{ item.price | number_with_delimiter }}</p>
+									</a>
+								</li>
+								<!-- {% for item in items limit: 24 %}
+								<li class="product-item">
+									<a href="{{ item.url }}">
+										<img src="{{ item.main_image | img_url: '410x410' }}" alt="{{ item.name }}">
+										<p class="product-name">{{ item.name }}</p>
+										<p class="product-price">¥{{ item.price | number_with_delimiter }}</p>
+									</a>
+								</li>
+								{% endfor %} -->
+							</ul>
+							<div class="view-all">
+								<a href="/items" class="btn-cart">すべての商品を見る</a>
+							</div>
 						</div>
-					</div>
-				</section>
+					</section>
+				</div>
 			</main>
-		</div>
+
+
 
 			<footer class="footer">
-			<div class="footer__inner">
-				<small>© 2025 ショップタイトル All Rights Reserved.</small>
-			</div>
-		</footer>
+				<div class="footer__inner">
+					<small>© 2025 蒲田商店</small>
+				</div>
+			</footer>
 
+		</div>
 		<script src="js/script.js"></script>
 	</body>
 </html>
