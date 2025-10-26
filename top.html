@@ -1,66 +1,279 @@
-{% extends 'layout' %}
+<!DOCTYPE html>
+<html lang="ja">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1.0" />
+		<title>{{ shop.name }} | {{ page_title }}</title>
+		<meta name="description" content="{{ shop.description }}">
+		<link rel="stylesheet" href="{{ 'style.css' | asset_url }}">
+		<link rel="stylesheet" href="{{ 'swiper-bundle.min' | asset_url }}">
+	</head>
 
-{% block content %}
-
-<section class="kv">
-	<div class="swiper">
-		<div class="swiper-wrapper">
-			<div class="swiper-slide">
-				<img src="{{ 'kv01.jpg' | asset_url }}" alt="メインビジュアル1">
+	<body>
+		<header class="site-header">
+			<div class="header__logo">
+				<a href="/"><img src="{{ 'logo_m.png' | asset_url }}"></a>
 			</div>
-			<div class="swiper-slide">
-				<img src="{{ 'kv02.jpg' | asset_url }}" alt="メインビジュアル2">
+			<div class="header__inner">
+				<h1 class="header__title">
+					<a href="/"><img src="{{ 'logo.png' | asset_url }}"></a>
+				</h1>
+				<nav class="site-nav">
+					<ul>
+						<li><a href="/items">オンラインショップ</a></li>
+						<li><a href="/contact">店舗案内</a></li>
+					</ul>
+				</nav>
 			</div>
-			<div class="swiper-slide">
-				<img src="{{ 'kv03.jpg' | asset_url }}" alt="メインビジュアル3">
+			<nav class="header__sns">
+				<ul>
+					<li><a href="/items"><img src="{{ 'login_i.png' | asset_url }}"></a></li>
+					<li><a href="/items"><img src="{{ 'cart_i.png' | asset_url }}"></a></li>
+					<li><a href="/contact"><img src="{{ 'ins_i.png' | asset_url }}"></a></li>
+				</ul>
+			</nav>
+			<div class="menu-toggle">
+				<img src="{{ 'menu_i.png' | asset_url }}" alt="メニュー" class="menu-icon">
+				<img src="{{ 'close_i.png' | asset_url }}" alt="閉じる" class="close-icon">
 			</div>
+			<nav class="sp-nav">
+				<div class="sp-left-column">
+					<div class="search_box">
+						<button><img src="{{ 'search_g.png' | asset_url }}" alt="Search"></button>
+						<input type="text" placeholder="Search">
+					</div>
+					<ul class="category-list">
+						{% for collection in collections %}
+							<li>
+								<a href="{{ collection.url }}">{{ collection.name }}</a>
+							</li>
+						{% endfor %}
+						{% assign artist_tags = '' %}
+						{% assign brand_tags = '' %}
+						{% assign maker_tags = '' %}
+
+						{% for tag in all_tags %}
+							{% if tag contains '作家_' %}
+								{% assign artist_tags = artist_tags | append: tag | append: ',' %}
+							{% elsif tag contains 'ブランド_' %}
+								{% assign brand_tags = brand_tags | append: tag | append: ',' %}
+							{% elsif tag contains 'メーカー_' %}
+								{% assign maker_tags = maker_tags | append: tag | append: ',' %}
+							{% endif %}
+						{% endfor %}
+
+						{% assign artist_array = artist_tags | split: ',' %}
+						{% assign brand_array = brand_tags | split: ',' %}
+						{% assign maker_array = maker_tags | split: ',' %}
+
+						<li class="dropdown">
+							<a href="#" class="dropdown-toggle">作家・ブランド・メーカー別 ▼</a>
+							<ul class="dropdown-menu">
+								{% if artist_array.size > 0 %}
+									<li class="sub-heading">作家</li>
+									{% for tag in artist_array %}
+										{% if tag != "" %}
+											{% assign name = tag | remove: '作家_' %}
+											<li><a href="/tags/{{ tag | url_encode }}">{{ name }}</a></li>
+										{% endif %}
+									{% endfor %}
+								{% endif %}
+
+								{% if brand_array.size > 0 %}
+									<li class="sub-heading">ブランド</li>
+									{% for tag in brand_array %}
+										{% if tag != "" %}
+											{% assign name = tag | remove: 'ブランド_' %}
+											<li><a href="/tags/{{ tag | url_encode }}">{{ name }}</a></li>
+										{% endif %}
+									{% endfor %}
+								{% endif %}
+
+								{% if maker_array.size > 0 %}
+									<li class="sub-heading">メーカー</li>
+									{% for tag in maker_array %}
+										{% if tag != "" %}
+											{% assign name = tag | remove: 'メーカー_' %}
+											<li><a href="/tags/{{ tag | url_encode }}">{{ name }}</a></li>
+										{% endif %}
+									{% endfor %}
+								{% endif %}
+							</ul>
+						</li>
+					</ul>
+				</div>
+			</nav>
+		</header>
+
+		<div class="contents">
+
+			<!-- メインビジュアル（Swiperメイン） -->
+			<section class="kv">
+				<div class="swiper swiper-main">
+					<div class="swiper-wrapper">
+						<div class="swiper-slide"><img src="{{ 'kv01.jpg' | asset_url }}" alt="メインビジュアル1"></div>
+						<div class="swiper-slide"><img src="{{ 'kv02.jpg' | asset_url }}" alt="メインビジュアル2"></div>
+						<div class="swiper-slide"><img src="{{ 'kv03.jpg' | asset_url }}" alt="メインビジュアル3"></div>
+					</div>
+
+				</div>
+					<!-- ページネーションとナビ -->
+				<div class="swiper-pagination"></div>
+
+				<!-- サムネ（Swiperサブ） -->
+				<div class="swiper swiper-thumbs nondisplay_sp">
+					<div class="swiper-wrapper">
+						<div class="swiper-slide"><img src="{{ 'kv01.jpg' | asset_url }}" alt="サムネ1"></div>
+						<div class="swiper-slide"><img src="{{ 'kv02.jpg' | asset_url }}" alt="サムネ2"></div>
+						<div class="swiper-slide"><img src="{{ 'kv03.jpg' | asset_url }}" alt="サムネ3"></div>
+					</div>
+				</div>
+			</section>
+
+			<main class="main">
+				<div class="left_column nondisplay_sp">
+					<form action="/search" method="get" class="search_box">
+						<button type="submit"><img src="images/search_i.png"></button>
+						<input type="text" name="q" placeholder="　Search　">
+					</form>
+
+					<aside class="sidebar">
+					<ul class="category-list">
+						{% for collection in collections %}
+							<li>
+								<a href="{{ collection.url }}">{{ collection.name }}</a>
+							</li>
+						{% endfor %}
+						{% assign artist_tags = '' %}
+						{% assign brand_tags = '' %}
+						{% assign maker_tags = '' %}
+
+						{% for tag in all_tags %}
+							{% if tag contains '作家_' %}
+								{% assign artist_tags = artist_tags | append: tag | append: ',' %}
+							{% elsif tag contains 'ブランド_' %}
+								{% assign brand_tags = brand_tags | append: tag | append: ',' %}
+							{% elsif tag contains 'メーカー_' %}
+								{% assign maker_tags = maker_tags | append: tag | append: ',' %}
+							{% endif %}
+						{% endfor %}
+
+						{% assign artist_array = artist_tags | split: ',' %}
+						{% assign brand_array = brand_tags | split: ',' %}
+						{% assign maker_array = maker_tags | split: ',' %}
+
+						<li class="dropdown">
+							<a href="#" class="dropdown-toggle">作家・ブランド・メーカー別 ▼</a>
+							<ul class="dropdown-menu">
+								{% if artist_array.size > 0 %}
+									<li class="sub-heading">作家</li>
+									{% for tag in artist_array %}
+										{% if tag != "" %}
+											{% assign name = tag | remove: '作家_' %}
+											<li><a href="/tags/{{ tag | url_encode }}">{{ name }}</a></li>
+										{% endif %}
+									{% endfor %}
+								{% endif %}
+
+								{% if brand_array.size > 0 %}
+									<li class="sub-heading">ブランド</li>
+									{% for tag in brand_array %}
+										{% if tag != "" %}
+											{% assign name = tag | remove: 'ブランド_' %}
+											<li><a href="/tags/{{ tag | url_encode }}">{{ name }}</a></li>
+										{% endif %}
+									{% endfor %}
+								{% endif %}
+
+								{% if maker_array.size > 0 %}
+									<li class="sub-heading">メーカー</li>
+									{% for tag in maker_array %}
+										{% if tag != "" %}
+											{% assign name = tag | remove: 'メーカー_' %}
+											<li><a href="/tags/{{ tag | url_encode }}">{{ name }}</a></li>
+										{% endif %}
+									{% endfor %}
+								{% endif %}
+							</ul>
+						</li>
+					</ul>
+					</aside>
+				</div>
+
+				<div class="right_column">
+					<section class="products">
+						<div class="products__inner">
+							<h2 class="section-title">Pick Up / New Arrival</h2>
+							<ul class="product-list">
+								{% for item in items limit: 8 %}
+								<li class="product-item">
+									<a href="{{ item.url }}">
+										<img src="{{ item.main_image | img_url: '600x600' }}" alt="{{ item.name }}">
+										{% assign artist = "" %}
+										{% assign brand = "" %}
+										{% assign maker = "" %}
+
+										{% for tag in item.tags %}
+											{% if tag contains '作家_' %}
+												{% assign artist = tag | remove: '作家_' %}
+											{% elsif tag contains 'ブランド_' %}
+												{% assign brand = tag | remove: 'ブランド_' %}
+											{% elsif tag contains 'メーカー_' %}
+												{% assign maker = tag | remove: 'メーカー_' %}
+											{% endif %}
+										{% endfor %}
+
+										{% if artist != "" %}
+											<p class="product-artist">{{ artist }}</p>
+										{% endif %}
+										{% if brand != "" %}
+											<p class="product-brand">{{ brand }}</p>
+										{% endif %}
+										{% if maker != "" %}
+											<p class="product-maker">{{ maker }}</p>
+										{% endif %}
+										<p class="product-name">{{ item.name }}</p>
+										<p class="product-price">¥{{ item.price | number_with_delimiter }}</p>
+									</a>
+								</li>
+								{% endfor %}
+							</ul>
+						</div>
+					</section>
+				</div>
+			</main>
+
+			<footer class="footer">
+				<nav class="footer_nav">
+					<ul>
+						<li><a href="#">店舗案内</a></li>
+						<li><a href="#">お問い合わせ</a></li>
+						<li><a href="#">ショッピングガイド</a></li>
+						<li><a href="#">プライバシーポリシー</a></li>
+						<li><a href="#">特定商取引に関する表示</a></li>
+					</ul>
+				</nav>
+				<div class="footer__inner">
+					<div class="shop_info">
+						<h2 class="shop_name"><img src="{{ 'footer_logo.png' | asset_url }}" alt="蒲田商店"></h2>
+						<p class="address">〒759-4103<br>
+						山口県長門市深川湯本1260-1</p>
+						<p class="tel">TEL：070-2356-5102</p>
+						<p class="email">MAIL：info@kamada-shouten.jp</p>
+						<i class="footer_sns">
+							<a href=""><img src="{{ 'insta_logo.png' | asset_url }}" alt="Instagram"></a>
+						</i>
+					</div>
+					<i class="footer_sns nondisplay_sp">
+						<a href=""><img src="{{ 'ins_i.png' | asset_url }}" alt="Instagram"></a>
+					</i>
+					<p class="copy">Copyright &copy; 2025 蒲田商店</p>
+				</div>
+			</footer>
+
 		</div>
-		<!-- ナビゲーション（必要に応じて） -->
-		<div class="swiper-pagination"></div>
-		<div class="swiper-button-prev"></div>
-		<div class="swiper-button-next"></div>
-	</div>
-</section>
-
-<section class="intro">
-	<div class="intro__inner">
-		<h2 class="section-title">ようこそ、{{ shop.name }}へ</h2>
-		<p class="intro__text">{{ shop.description }}</p>
-	</div>
-</section>
-
-<section class="products">
-	<div class="products__inner">
-		<h2 class="section-title">おすすめ商品</h2>
-		<ul class="product-list">
-			{% for item in items limit: 8 %}
-			<li class="product-item">
-				<a href="{{ item.url }}">
-					<img src="{{ item.main_image | img_url: '600x600' }}" alt="{{ item.name }}">
-					<p class="product-name">{{ item.name }}</p>
-					<p class="product-price">¥{{ item.price | number_with_delimiter }}</p>
-				</a>
-			</li>
-			{% endfor %}
-		</ul>
-		<div class="view-all">
-			<a href="/items" class="btn-cart">すべての商品を見る</a>
-		</div>
-	</div>
-</section>
-
-<section class="info">
-	<div class="info__inner">
-		<h2 class="section-title">お知らせ</h2>
-		<ul class="info-list">
-			{% for blog in blogs limit: 3 %}
-			<li><a href="{{ blog.url }}">{{ blog.title }}</a></li>
-			{% endfor %}
-		</ul>
-		<div class="view-all">
-			<a href="/blogs" class="btn-cart">もっと見る</a>
-		</div>
-	</div>
-</section>
-
-{% endblock %}
+		<script src="{{ 'script.js' | asset_url }}" defer></script>
+		<script src="{{ 'swiper-bundle.min.js' | asset_url }}" defer></script>
+		{{ content_for_footer }}
+	</body>
+</html>

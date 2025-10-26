@@ -1,0 +1,961 @@
+{block:NotLoadItemsPage}
+<!DOCTYPE html>
+<head>
+		<meta charset="utf-8">
+		<meta name="copyright" content="BASE">
+		<meta name="viewport" content="viewport-fit=cover, width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+		<title>{PageTitle}</title>
+		{FaviconTag}
+		{CanonicalTag}
+		{block:IndexPage}
+				{HeadLinkNextPrevTag}
+		{/block:IndexPage}
+
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" />
+		<link rel="stylesheet" href="https://basefile.akamaized.net/kamada-base-ec/68fc402e43c9e/style_v1.css" />
+		{BackgroundTag}
+
+		{block:IndexPage}
+		{MetaItemInfoTag}
+		<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+		{/block:IndexPage}
+		{block:ItemPage}
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+		{/block:ItemPage}
+
+		{block:NotItemPage}
+		{MetaShopInfoTag}
+		{/block:NotItemPage}
+
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/gh/jimyi/jquery_bottom@1b7e2204c9193647884581804011ceb5d1d95aac/jquery.bottom-1.0.min.js"></script>
+		{block:IndexPage}
+		<script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+		{/block:IndexPage}
+
+		<script src="https://basefile.akamaized.net/kamada-base-ec/68fb54936f8df/script_v1.js"></script>
+
+		{block:ItemPage}
+		<script src="https://basefile.akamaized.net/kamada-base-ec/68fc3456c526e/cart.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+		<script>
+		window.addEventListener("load", () => {
+			// メインスライダー
+			const mainSwiper = new Swiper(".swiper-main", {
+				loop: false,
+				slidesPerView: 1,
+				spaceBetween: 10,
+			});
+
+			// サムネイルクリックでメイン切替
+			const thumbs = document.querySelectorAll('#slideImgPager a[data-slide-index]');
+			thumbs.forEach((thumb, i) => {
+				thumb.addEventListener('click', (e) => {
+					e.preventDefault();
+					mainSwiper.slideTo(i);
+					// サムネのアクティブ制御
+					thumbs.forEach(t => t.classList.remove('active'));
+					thumb.classList.add('active');
+				});
+			});
+		});
+		</script>
+		{/block:ItemPage}
+
+		{GoogleAnalyticsTag}
+
+		{block:AppsItemLabel}
+				<!-- <link rel="stylesheet" type="text/css" href="{BASEURL}/item_label/css/ShopTemplate/style.css?{UpdateTime}">
+				<script type="text/javascript" src="{BASEURL}/item_label/js/ShopTemplate/labelpostion.js?{UpdateTime}"></script> -->
+		{/block:AppsItemLabel}
+
+		{block:AppsBlog}
+				<!-- <link href="{BlogFeedPageURL}" rel="alternate" type="application/rss+xml" title="Blog | {ShopName}"> -->
+		{/block:AppsBlog}
+	</head>
+	<body id="{block:IndexPage}shopTopPage{/block:IndexPage}{block:ItemPage}shopDetailPage{/block:ItemPage}" class="shop template">
+	{block:AppsInformationBanner}
+		{AppsInformationBannerTag}
+		<script type="text/javascript">
+				window.addEventListener('DOMContentLoaded', function() {
+						const banner = document.getElementsByClassName('informationBanner');
+						if (!banner || banner.length === 0) return;
+
+						const resizeObserver = new ResizeObserver(entries => {
+								for (let entry of entries) {
+										const bannerHeight = entry.target.offsetHeight;
+										document.documentElement.style.setProperty("--information-banner-height", bannerHeight + 'px');
+								}
+						});
+						resizeObserver.observe(banner[0]);
+				});
+		</script>
+{/block:AppsInformationBanner}
+{block:AppsI18n}{AppsI18nTag}{/block:AppsI18n}
+<div style="display:none">
+	{BASEMenuTag}
+</div>
+
+	<header id="top" class="site-header">
+		<div class="header__logo">
+			<a href="/"><img src="https://basefile.akamaized.net/kamada-base-ec/68f4c13d8d56d/logo_m.png"></a>
+		</div>
+		<div class="header__inner">
+			<h1 class="header__title">
+				<a href="{IndexPageURL}" id="logo">{LogoTag}</a>
+			</h1>
+			<nav class="site-nav">
+				<ul>
+					<li><a href="{IndexPageURL}">オンラインショップ</a></li>
+					<li><a href="{AboutPageURL}">店舗案内</a></li>
+				</ul>
+			</nav>
+		</div>
+		<nav class="header__sns">
+			<ul>
+				<li><a href="https://thebase.com?from=kamada-base-ec&p=shop"><img src="https://basefile.akamaized.net/kamada-base-ec/68f4c08c570a3/login_i.png"></a></li>
+				<li><a href="https://kamada.base.ec/cart/add/kamada-base-ec"><img src="https://basefile.akamaized.net/kamada-base-ec/68f4c0697111e/cart_i.png"></a></li>
+				<li class="nondisplay_sp"><a href="https://www.instagram.com/{ShopInstagramId}/"><img src="https://basefile.akamaized.net/kamada-base-ec/68f4c0ac58fa3/ins_i.png"></a></li>
+			</ul>
+		</nav>
+		<div class="menu-toggle">
+			<img src="https://basefile.akamaized.net/kamada-base-ec/68f4c0d6e33b7/menu_i.png" alt="メニュー" class="menu-icon">
+			<img src="https://basefile.akamaized.net/kamada-base-ec/68f4c0ee9b697/close_i.png" alt="閉じる" class="close-icon">
+		</div>
+		<nav class="sp-nav">
+			<!-- ▼ ここにSP用 left_columnを丸ごと入れる -->
+			<div class="sp-left-column">
+				<div class="search_box">
+					<button><img src="https://basefile.akamaized.net/kamada-base-ec/68f4c205055fd/search_g.png"></button>
+					<input type="text" placeholder="Search">
+				</div>
+				<nav class="category-list">
+					<!-- ▼カテゴリ一覧 -->
+					{block:AppsItemCategory}
+						{AppsItemCategoryCategoriesTag}
+					{/block:AppsItemCategory}
+				</nav>
+			</div>
+			<!-- ▲ left_column部分ここまで -->
+		</nav>
+	</header>
+
+
+	{block:IndexPage}
+	<div class="contents top">
+
+		<!-- メインビジュアル（Swiperメイン） -->
+		<section class="kv">
+			<div class="slider-for">
+				<div><img src="https://basefile.akamaized.net/kamada-base-ec/68f501c11a6be/kv01.jpg" alt="メイン1"></div>
+				<div><img src="https://basefile.akamaized.net/kamada-base-ec/68f501ef76e25/kv02.jpg" alt="メイン2"></div>
+				<div><img src="https://basefile.akamaized.net/kamada-base-ec/68f501c11a6be/kv01.jpg" alt="メイン3"></div>
+			</div>
+
+			<div class="slider-nav">
+				<div><img src="https://basefile.akamaized.net/kamada-base-ec/68f501c11a6be/kv01.jpg" alt="サムネ1"></div>
+				<div><img src="https://basefile.akamaized.net/kamada-base-ec/68f501ef76e25/kv02.jpg" alt="サムネ2"></div>
+				<div><img src="https://basefile.akamaized.net/kamada-base-ec/68f501c11a6be/kv01.jpg" alt="サムネ3"></div>
+			</div>
+		</section>
+		{/block:IndexPage}
+	{block:ItemPage}
+	<div class="contents goods">
+	{/block:ItemPage}
+	{block:AboutPage}
+	<div class="contents about">
+	{/block:AboutPage}
+	{block:PrivacyPage}
+	<div class="contents privacy">
+	{/block:PrivacyPage}
+	{block:LawPage}
+	<div class="contents law">
+	{/block:LawPage}
+		<main class="main">
+			<div class="left_column nondisplay_sp">
+				<form action="/search" method="get" class="search_box">
+					<button type="submit"><img src="https://basefile.akamaized.net/kamada-base-ec/68f4c22f0fbb9/search_i.png"></button>
+					<input type="text" name="q" placeholder="　Search　">
+				</form>
+
+				<aside class="sidebar">
+					<nav class="category-list">
+						<!-- ▼カテゴリ一覧 -->
+						{block:AppsItemCategory}
+							{AppsItemCategoryCategoriesTag}
+						{/block:AppsItemCategory}
+					</nav>
+				</aside>
+			</div>
+
+
+
+			<div class="right_column">
+				{block:IndexPage}
+				<section class="product top">
+					<div class="products__inner">
+						<h2 class="section-title">Pick Up / New Arrival</h2>
+						{block:HasItems}
+						<div id="mainContent" class="product-list">
+							{block:Items}
+							<div class="item part">
+								<div class="itemImg">
+									<a href="{ItemPageURL}">
+											{block:AppsItemLabel}
+													{AppsItemLabelTag}
+											{/block:AppsItemLabel}
+											<img src="{block:ItemImage1}{ItemImage1URL-300}{/block:ItemImage1}{block:NoItemImage1}{ItemNoImageURL}{/block:NoItemImage1}" alt="{ItemTitle}" title="{ItemTitle}" class="image-resize">
+											{block:ItemNowOnSale}
+													{block:NoItemStock}
+															<div class="soldout_cover"><p>SOLD OUT</p></div>
+													{/block:NoItemStock}
+											{/block:ItemNowOnSale}
+											{block:ItemEndOfSale}
+													<div class="soldout_cover"><p>SOLD OUT</p></div>
+											{/block:ItemEndOfSale}
+									</a>
+								</div>
+								<a href="{ItemPageURL}">
+									<div class="itemTitle">
+										<h2>{ItemTitle}</h2>
+									</div>
+									<ul class="itemDetail">
+										{block:NoItemProperPrice}
+										<!-- 定価 -->
+										<li class="itemPrice">{ItemPrice}</li>
+										{/block:NoItemProperPrice}
+										{block:HasItemProperPrice}
+										<!-- 割引 -->
+										<li class="discountPrice">
+												<span class="discountPrice__ratio">{ItemDiscountRate}</span>
+												<span class="discountPrice__calcPrice">{ItemPrice}</span>
+										</li>
+										{/block:HasItemProperPrice}
+									</ul>
+									{block:HasItemStock}
+										{block:ItemWatingForSale}
+												<p class="comingSoon">COMING SOON</p>
+										{/block:ItemWatingForSale}
+										{block:ItemNowOnSale}{block:ItemPreOrder}
+												<p class="preOrder">{lang:PreOrderItem}</p>
+										{/block:ItemPreOrder}{block:ItemLottery}
+												<p class="lottery">{lang:LotteryItem}</p>
+										{/block:ItemLottery}{block:ItemTakeout}
+												<p class="takeout">{lang:TakeoutItem}</p>
+										{/block:ItemTakeout}{block:ItemCommunityLimited}
+												<p class="community">{lang:CommunityLimitedItem}</p>
+										{/block:ItemCommunityLimited}{/block:ItemNowOnSale}
+									{/block:HasItemStock}
+									{block:NoItemStock}
+										{block:ItemWatingForSale}
+												<p class="comingSoon">COMING SOON</p>
+										{/block:ItemWatingForSale}
+									{/block:NoItemStock}
+								</a>
+							</div>
+							{/block:Items}
+						</div>
+						<div id="loading" style="display: none;text-align: center;"><img src="/img/loading.gif" width="220" style="padding: 20px 0;"></div>
+						{/block:HasItems}
+						{block:NoItems}
+						<p style="text-align: center;">{lang:NoItemsMessage}</p>
+						{/block:NoItems}
+					</div>
+				</section>
+				{/block:IndexPage}
+
+				{block:IndexPageCategory}
+				<div class="category-header">
+					<div class="category-header__inner">
+						<h3 class="category-title"></h3>
+						<ul class="subcategory-list"></ul>
+					</div>
+
+					{block:AppsItemCategory}
+						{AppsItemCategoryCategoriesTag}
+					{/block:AppsItemCategory}
+				</div>
+				<section class="product cate">
+					<div class="products__inner">
+						{block:HasItems}
+						<div id="mainContent" class="product-list">
+							{block:Items}
+							<div class="item part">
+								<div class="itemImg">
+									<a href="{ItemPageURL}">
+											{block:AppsItemLabel}
+													{AppsItemLabelTag}
+											{/block:AppsItemLabel}
+											<img src="{block:ItemImage1}{ItemImage1URL-300}{/block:ItemImage1}{block:NoItemImage1}{ItemNoImageURL}{/block:NoItemImage1}" alt="{ItemTitle}" title="{ItemTitle}" class="image-resize">
+											{block:ItemNowOnSale}
+													{block:NoItemStock}
+															<div class="soldout_cover"><p>SOLD OUT</p></div>
+													{/block:NoItemStock}
+											{/block:ItemNowOnSale}
+											{block:ItemEndOfSale}
+													<div class="soldout_cover"><p>SOLD OUT</p></div>
+											{/block:ItemEndOfSale}
+									</a>
+								</div>
+								<a href="{ItemPageURL}">
+									<div class="itemTitle">
+										<h2>{ItemTitle}</h2>
+									</div>
+									<ul class="itemDetail">
+										{block:NoItemProperPrice}
+										<!-- 定価 -->
+										<li class="itemPrice">{ItemPrice}</li>
+										{/block:NoItemProperPrice}
+										{block:HasItemProperPrice}
+										<!-- 割引 -->
+										<li class="discountPrice">
+												<span class="discountPrice__ratio">{ItemDiscountRate}</span>
+												<span class="discountPrice__calcPrice">{ItemPrice}</span>
+										</li>
+										{/block:HasItemProperPrice}
+									</ul>
+									{block:HasItemStock}
+										{block:ItemWatingForSale}
+												<p class="comingSoon">COMING SOON</p>
+										{/block:ItemWatingForSale}
+										{block:ItemNowOnSale}{block:ItemPreOrder}
+												<p class="preOrder">{lang:PreOrderItem}</p>
+										{/block:ItemPreOrder}{block:ItemLottery}
+												<p class="lottery">{lang:LotteryItem}</p>
+										{/block:ItemLottery}{block:ItemTakeout}
+												<p class="takeout">{lang:TakeoutItem}</p>
+										{/block:ItemTakeout}{block:ItemCommunityLimited}
+												<p class="community">{lang:CommunityLimitedItem}</p>
+										{/block:ItemCommunityLimited}{/block:ItemNowOnSale}
+									{/block:HasItemStock}
+									{block:NoItemStock}
+										{block:ItemWatingForSale}
+												<p class="comingSoon">COMING SOON</p>
+										{/block:ItemWatingForSale}
+									{/block:NoItemStock}
+								</a>
+							</div>
+							{/block:Items}
+						</div>
+						<div id="loading" style="display: none;text-align: center;"><img src="/img/loading.gif" width="220" style="padding: 20px 0;"></div>
+						{/block:HasItems}
+						{block:NoItems}
+						<p style="text-align: center;">{lang:NoItemsMessage}</p>
+						{/block:NoItems}
+					</div>
+				</section>
+				{/block:IndexPageCategory}
+
+				{block:ItemPage}
+				<section class="legal-section">
+					<div class="item-detail__inner">
+						<nav class="breadcrumb" aria-label="breadcrumb">
+							{block:AppsItemCategory}
+							{block:IndexPageCategory}
+								{BreadcrumbTag}
+							{/block:AppsItemCategory}
+							{/block:IndexPageCategory}
+						</nav>
+
+						<div class="box">
+							<div class="itemImg clearfix">
+								<div class="itemImgSlide">
+									<ul id="slideImg">
+										<li><div class="imgBox"><a href="{block:ItemImage1}{ItemImage1URL-origin}{/block:ItemImage1}{block:NoItemImage1}{ItemNoImageURL}{/block:NoItemImage1}" class="ajax btn grn save" rel="group">
+										{block:AppsItemLabel}
+												{AppsItemLabelTag}
+										{/block:AppsItemLabel}
+										<img src="{block:ItemImage1}{ItemImage1URL-500}{/block:ItemImage1}{block:NoItemImage1}{ItemNoImageURL}{/block:NoItemImage1}" alt="{ItemTitle}" title=""></a></div></li>
+										{block:ItemImage2}<li style="display:none;"><div class="imgBox"><a href="{ItemImage2URL-origin}" class="ajax btn grn save" rel="group"><img src="{ItemImage2URL-500}" alt="" title=""></a></div></li>{/block:ItemImage2}
+										{block:ItemImage3}<li style="display:none;"><div class="imgBox"><a href="{ItemImage3URL-origin}" class="ajax btn grn save" rel="group"><img src="{ItemImage3URL-500}" alt="" title=""></a></div></li>{/block:ItemImage3}
+										{block:ItemImage4}<li style="display:none;"><div class="imgBox"><a href="{ItemImage4URL-origin}" class="ajax btn grn save" rel="group"><img src="{ItemImage4URL-500}" alt="" title=""></a></div></li>{/block:ItemImage4}
+										{block:ItemImage5}<li style="display:none;"><div class="imgBox"><a href="{ItemImage5URL-origin}" class="ajax btn grn save" rel="group"><img src="{ItemImage5URL-500}" alt="" title=""></a></div></li>{/block:ItemImage5}
+										{block:ItemImage6}<li style="display:none;"><div class="imgBox"><a href="{ItemImage6URL-origin}" class="ajax btn grn save" rel="group"><img src="{ItemImage6URL-500}" alt="" title=""></a></div></li>{/block:ItemImage6}
+										{block:ItemImage7}<li style="display:none;"><div class="imgBox"><a href="{ItemImage7URL-origin}" class="ajax btn grn save" rel="group"><img src="{ItemImage7URL-500}" alt="" title=""></a></div></li>{/block:ItemImage7}
+										{block:ItemImage8}<li style="display:none;"><div class="imgBox"><a href="{ItemImage8URL-origin}" class="ajax btn grn save" rel="group"><img src="{ItemImage8URL-500}" alt="" title=""></a></div></li>{/block:ItemImage8}
+										{block:ItemImage9}<li style="display:none;"><div class="imgBox"><a href="{ItemImage9URL-origin}" class="ajax btn grn save" rel="group"><img src="{ItemImage9URL-500}" alt="" title=""></a></div></li>{/block:ItemImage9}
+										{block:ItemImage10}<li style="display:none;"><div class="imgBox"><a href="{ItemImage10URL-origin}" class="ajax btn grn save" rel="group"><img src="{ItemImage10URL-500}" alt="" title=""></a></div></li>{/block:ItemImage10}
+										{block:ItemImage11}<li style="display:none;"><div class="imgBox"><a href="{ItemImage11URL-origin}" class="ajax btn grn save" rel="group"><img src="{ItemImage11URL-500}" alt="" title=""></a></div></li>{/block:ItemImage11}
+										{block:ItemImage12}<li style="display:none;"><div class="imgBox"><a href="{ItemImage12URL-origin}" class="ajax btn grn save" rel="group"><img src="{ItemImage12URL-500}" alt="" title=""></a></div></li>{/block:ItemImage12}
+										{block:ItemImage13}<li style="display:none;"><div class="imgBox"><a href="{ItemImage13URL-origin}" class="ajax btn grn save" rel="group"><img src="{ItemImage13URL-500}" alt="" title=""></a></div></li>{/block:ItemImage13}
+										{block:ItemImage14}<li style="display:none;"><div class="imgBox"><a href="{ItemImage14URL-origin}" class="ajax btn grn save" rel="group"><img src="{ItemImage14URL-500}" alt="" title=""></a></div></li>{/block:ItemImage14}
+										{block:ItemImage15}<li style="display:none;"><div class="imgBox"><a href="{ItemImage15URL-origin}" class="ajax btn grn save" rel="group"><img src="{ItemImage15URL-500}" alt="" title=""></a></div></li>{/block:ItemImage15}
+										{block:ItemImage16}<li style="display:none;"><div class="imgBox"><a href="{ItemImage16URL-origin}" class="ajax btn grn save" rel="group"><img src="{ItemImage16URL-500}" alt="" title=""></a></div></li>{/block:ItemImage16}
+										{block:ItemImage17}<li style="display:none;"><div class="imgBox"><a href="{ItemImage17URL-origin}" class="ajax btn grn save" rel="group"><img src="{ItemImage17URL-500}" alt="" title=""></a></div></li>{/block:ItemImage17}
+										{block:ItemImage18}<li style="display:none;"><div class="imgBox"><a href="{ItemImage18URL-origin}" class="ajax btn grn save" rel="group"><img src="{ItemImage18URL-500}" alt="" title=""></a></div></li>{/block:ItemImage18}
+										{block:ItemImage19}<li style="display:none;"><div class="imgBox"><a href="{ItemImage19URL-origin}" class="ajax btn grn save" rel="group"><img src="{ItemImage19URL-500}" alt="" title=""></a></div></li>{/block:ItemImage19}
+										{block:ItemImage20}<li style="display:none;"><div class="imgBox"><a href="{ItemImage20URL-origin}" class="ajax btn grn save" rel="group"><img src="{ItemImage20URL-500}" alt="" title=""></a></div></li>{/block:ItemImage20}
+									</ul>
+								</div>
+								<ul id="slideImgPager" class="swiper-thumbs">
+									<li><a data-slide-index="{Counter}" href=""><div class="smallImgBox"><img src="{block:ItemImage1}{ItemImage1URL-76}{/block:ItemImage1}{block:NoItemImage1}{ItemNoImageURL}{/block:NoItemImage1}" alt="{ItemTitle}" title=""></div></a></li>
+									{block:ItemImage2}<li><a data-slide-index="{Counter}" href=""><div class="smallImgBox"><img src="{ItemImage2URL-76}" alt="" title=""></div></a></li>{/block:ItemImage2}
+									{block:ItemImage3}<li><a data-slide-index="{Counter}" href=""><div class="smallImgBox"><img src="{ItemImage3URL-76}" alt="" title=""></div></a></li>{/block:ItemImage3}
+									{block:ItemImage4}<li><a data-slide-index="{Counter}" href=""><div class="smallImgBox"><img src="{ItemImage4URL-76}" alt="" title=""></div></a></li>{/block:ItemImage4}
+									{block:ItemImage5}<li><a data-slide-index="{Counter}" href=""><div class="smallImgBox"><img src="{ItemImage5URL-76}" alt="" title=""></div></a></li>{/block:ItemImage5}
+									{block:ItemImage6}<li><a data-slide-index="{Counter}" href=""><div class="smallImgBox"><img src="{ItemImage6URL-76}" alt="" title=""></div></a></li>{/block:ItemImage6}
+									{block:ItemImage7}<li><a data-slide-index="{Counter}" href=""><div class="smallImgBox"><img src="{ItemImage7URL-76}" alt="" title=""></div></a></li>{/block:ItemImage7}
+									{block:ItemImage8}<li><a data-slide-index="{Counter}" href=""><div class="smallImgBox"><img src="{ItemImage8URL-76}" alt="" title=""></div></a></li>{/block:ItemImage8}
+									{block:ItemImage9}<li><a data-slide-index="{Counter}" href=""><div class="smallImgBox"><img src="{ItemImage9URL-76}" alt="" title=""></div></a></li>{/block:ItemImage9}
+									{block:ItemImage10}<li><a data-slide-index="{Counter}" href=""><div class="smallImgBox"><img src="{ItemImage10URL-76}" alt="" title=""></div></a></li>{/block:ItemImage10}
+									{block:ItemImage11}<li><a data-slide-index="{Counter}" href=""><div class="smallImgBox"><img src="{ItemImage11URL-76}" alt="" title=""></div></a></li>{/block:ItemImage11}
+									{block:ItemImage12}<li><a data-slide-index="{Counter}" href=""><div class="smallImgBox"><img src="{ItemImage12URL-76}" alt="" title=""></div></a></li>{/block:ItemImage12}
+									{block:ItemImage13}<li><a data-slide-index="{Counter}" href=""><div class="smallImgBox"><img src="{ItemImage13URL-76}" alt="" title=""></div></a></li>{/block:ItemImage13}
+									{block:ItemImage14}<li><a data-slide-index="{Counter}" href=""><div class="smallImgBox"><img src="{ItemImage14URL-76}" alt="" title=""></div></a></li>{/block:ItemImage14}
+									{block:ItemImage15}<li><a data-slide-index="{Counter}" href=""><div class="smallImgBox"><img src="{ItemImage15URL-76}" alt="" title=""></div></a></li>{/block:ItemImage15}
+									{block:ItemImage16}<li><a data-slide-index="{Counter}" href=""><div class="smallImgBox"><img src="{ItemImage16URL-76}" alt="" title=""></div></a></li>{/block:ItemImage16}
+									{block:ItemImage17}<li><a data-slide-index="{Counter}" href=""><div class="smallImgBox"><img src="{ItemImage17URL-76}" alt="" title=""></div></a></li>{/block:ItemImage17}
+									{block:ItemImage18}<li><a data-slide-index="{Counter}" href=""><div class="smallImgBox"><img src="{ItemImage18URL-76}" alt="" title=""></div></a></li>{/block:ItemImage18}
+									{block:ItemImage19}<li><a data-slide-index="{Counter}" href=""><div class="smallImgBox"><img src="{ItemImage19URL-76}" alt="" title=""></div></a></li>{/block:ItemImage19}
+									{block:ItemImage20}<li><a data-slide-index="{Counter}" href=""><div class="smallImgBox"><img src="{ItemImage20URL-76}" alt="" title=""></div></a></li>{/block:ItemImage20}
+								</ul>
+								{block:ItemNowOnSale}{block:NoItemStock}
+									<p class="soldout">SOLD OUT</p>
+								{/block:NoItemStock}{/block:ItemNowOnSale}
+								{block:ItemEndOfSale}
+								<p class="soldout">SOLD OUT</p>
+								{/block:ItemEndOfSale}
+								{block:ItemWatingForSale}
+								<p class="comingSoon">{ItemSaleStatusTag}</p>
+								{/block:ItemWatingForSale}
+							</div>
+
+							<div class="item-detail__info">
+								<h3 class="item-detail__title">{ItemTitle}</h3>
+								{block:NoItemProperPrice}
+								<p class="item-detail__price">{ItemPrice}</p>
+								{/block:NoItemProperPrice}
+								{block:HasItemProperPrice}
+								<p class="item-discountPrice"><span class="discountPrice__default">{ItemProperPrice}</span><span class="discountPrice__ratio">{ItemDiscountRate}</span><span class="discountPrice__calcPrice">{ItemPrice}</span></p>
+								{/block:HasItemProperPrice}
+								{block:PurchaseForm}
+								{ItemSelectTag}
+								{block:AppsCommunity}
+									{CommunityPurchaseButton}
+								{/block:AppsCommunity}
+								{AppsAgeVerificationWarningTag}
+									{PurchaseButton}
+								{/block:PurchaseForm}
+
+								{ItemAttentionTag}
+								<div class="option">
+									<p>22,000円（税込）以上ご購入で送料無料</p>
+									<ul>
+										<li><a href="#">→ラッピングをご希望の方はこちら</a></li>
+										<li><a href="{LawPageURL}">→支払い・配送について</a></li>
+										<li><a href="#">→ショッピングガイド</a></li>
+									</ul>
+								</div>
+								<div class="shareButtons">
+									{SocialButtonTag}
+									<div class="twitter">
+										<a href="https://twitter.com/share" class="twitter-share-button" data-url="{ItemRedirectUrl}" data-lang="ja" data-hashtags="{TwitterDataHashtags}" data-via="{TwitterDataVia}">{lang:Tweet}</a>
+									</div>
+									<div class="facebook">
+											<div class="fb-share-button" data-layout="button_count" data-size="small" data-mobile-iframe="true"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u&amp;src=sdkpreparse">シェア</a></div>
+									</div>
+									{EmbedWidgetTag}
+								</div>
+								<div id="reportBtn">
+										{IllegalReportTag}
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<article class="item-detail__desc">
+						<div class="item_inner">
+							{block:AppsItemDetailCustom}
+								{AdditionalItemDetail}
+								{AdditionalItemDetailDefaultCssAndJs}
+							{/block:AppsItemDetailCustom}
+								{ItemDetail}
+						</div>
+					</article>
+					<div class="foot_cart">
+						{PurchaseButton}
+						<a href="#top" class="scrollTopBtn" aria-label="上に戻る">⌃</a>
+					</div>
+				</section>
+				<script src="https://cdn.jsdelivr.net/gh/jackmoore/colorbox@1.6.4/jquery.colorbox-min.js"></script>
+				<script src="https://cdn.jsdelivr.net/gh/stevenwanderski/bxslider-4@4.2.15/dist/jquery.bxslider.min.js"></script>
+				<script src="https://cdn.jsdelivr.net/gh/malihu/malihu-custom-scrollbar-plugin@3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
+				<script>
+						(function(win, doc, $) {
+								'use strict';
+								var COMMON = {};
+								$(function() {
+										COMMON.init();
+								});
+
+								COMMON = {
+										init: function() {
+												$(window).on('load', function(){
+														COMMON.slide_img();
+														COMMON.colorbox();
+														COMMON.customScrollBar();
+												});
+										},
+										slide_img: function(){
+												$('#slideImg').bxSlider({
+														controls: false,
+														pagerCustom: '#slideImgPager',
+														adaptiveHeight: true,
+														mode: 'fade'
+												});
+										},
+										colorbox:function(){
+												$(".ajax").on('click', function(e) {e.preventDefault();});
+												$(".ajax").colorbox({className:'itemCb',maxWidth:'90%',maxHeight:'90%',current:false});
+										},
+										customScrollBar: function(){
+												$("#slideImgPager").mCustomScrollbar({
+														axis:"y",
+														theme:"dark-thin"
+												});
+										}
+								};
+						}(window, document, jQuery));
+				</script>
+				{/block:ItemPage}
+
+				{block:AboutPage}
+				<section class="legal-section">
+					<div class="about__inner">
+						<div class="about__content">
+							<div class="box">
+								<figure class="pc_2column">
+										<img src="https://basefile.akamaized.net/kamada-base-ec/68f5015197750/about_pict01.jpg" alt="ショップについて">
+										<img src="https://basefile.akamaized.net/kamada-base-ec/68f50168c0d1d/about_pict02.jpg" alt="ショップについて">
+								</figure>
+								<article class="box-body fs9">
+									<figure class="nondisplay_pc">
+										<img src="https://basefile.akamaized.net/kamada-base-ec/68f5015197750/about_pict01.jpg" alt="ショップについて">
+									</figure>
+									<p class="first_txt">選ぶ理由がちゃんとあるモノ、<br>
+										長く大事に扱いたいと思えるモノを<br>
+										取り扱っています。</p>
+									<p>どうしてその道具なのか、<br>
+										その理由と価格を理解して、自分で選んだ商品は、きっと使う度に愛着がわき、大事に扱ってもらえると信じています。<br>
+									<p>道具を使う度に、選ぶ過程を思い出してもらえる、<br>
+										そんなお店でありたいと思っています。</p>
+								</article>
+								<article class="box-body bo-sepa2 pb2">
+									<figure class="nondisplay_pc">
+										<img src="https://basefile.akamaized.net/kamada-base-ec/68f50168c0d1d/about_pict02.jpg" alt="ショップについて">
+									</figure>
+									<p>相談しながら選びたい方、<br>
+										一人で集中して選びたい方、<br>
+										できるだけお客様の思いに寄り添えるように対応したいと思っています。</p>
+									<p>道具を使用する度、モノを愛でる度、<br>
+										選んだ時間、悩んだ時間を楽しく思い出してもらえると嬉しいです。</p>
+								</article>
+								<article class="box-body">
+									<p>〒759-4103<br>
+										山口県長門市深川湯本1260-1<br>
+										Tel: 070-2356-5102<br>
+										Mail: info@kamada-shouten.jp</p>
+										<p>◾️駐車場は付近の有料駐車場をご利用ください。</p>
+								</article>
+							</div>
+							<div class="box map-wrap">
+								<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3294.802453537597!2d131.1687953757283!3d34.33004997305358!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x35436712b9015bcb%3A0xdb0d917c99e579dc!2z44CSNzU5LTQxMDMg5bGx5Y-j55yM6ZW36ZaA5biC5rex5bed5rmv5pys77yR77yS77yW77yQ4oiS77yR!5e0!3m2!1sja!2sjp!4v1760615715192!5m2!1sja!2sjp" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+							</div>
+						</div>
+					</div>
+				</section>
+				{/block:AboutPage}
+
+				{block:PrivacyPage}
+				<section class="legal-section privacy">
+					<div class="privacy__inner">
+						<div class="privacy__content">
+
+							<div class="box">
+								<h3 class="box-title">プライバシーポリシー</h3>
+								<article class="box-body">
+									<p>蒲田商店オンラインショップ（以下，「当店」といいます。）は，GMOペパボ株式会社(以下サービス提供会社)の提供するショッピングカートASPサービス　カラーミーショップ(当サービス)を利用して当店を開設するにあたり，GMOペパボ株式会社の定めたプライバシー・ポリシーに則った個人情報の取扱いを行うものとし，以下のとおりプライバシーポリシー（以下，「本ポリシー」といいます。）を定めます。</p>
+								</article>
+								<article class="box-body">
+									<h4>第1条（個人情報）</h4>
+									<p>「個人情報」とは，個人情報保護法にいう「個人情報」を指すものとし，生存する個人に関する情報であって，当該情報に含まれる氏名，生年月日，住所，電話番号，連絡先その他の記述等により特定の個人を識別できる情報及び容貌，指紋，声紋にかかるデータ，及び健康保険証の保険者番号などの当該情報単体から特定の個人(以下サービス提供会社)の提供するショッピングカートASPサービス　カラーミーショップ(当サービス)を利用して当店を開設するにあたり，GMOペパボ株式会社の定めたプライバシー・ポリシーに則った個人情報の取扱いを行うものとし，以下のとおりプライバシーポリシー（以下，「本ポリシー」といいます。）を定めます。</p>
+								</article>
+								<article class="box-body">
+									<h4>第2条（個人情報の収集方法）</h4>
+									<p>当店は，お客様が当サービスを利用し登録，購入，問い合わせをする際に個人情報を収集することがあります。また，お客様と提携先などとの間でなされたお客様の個人情報を含む取引記録や決済に関する情報を,当店の提携先（情報提供元，広告主，広告配信先などを含みます。以下，｢提携先｣といいます。）などから収集することがあります。<br />
+									当店で収集する個人情報は以下のとおりです。(以下サービス提供会社)の提供するショッピングカートASPサービス　カラーミーショップ(当サービス)を利用して当店を開設するにあたり，GMOペパボ株式会社の定めたプライバシー・ポリシーに則った個人情報の取扱いを行うものとし，以下のとおりプライバシーポリシー（以下，「本ポリシー」といいます。）を定めます。</p>
+									<ul>
+										<li>氏名及びフリガナ</li>
+										<li>生年月日</li>privacy
+										<li>住所</li>
+										<li>電話番号</li>
+										<li>メールアドレス</li>
+										<li>銀行口座番号</li>
+										<li>クレジットカード番号</li>
+										<li>運転免許証番号</li>
+										<li>パスワード</li>
+										<li>配送先情報</li>
+										<li>当店とのお取引履歴及びその内容</li>
+										<li>上記を組み合わせることで特定の個人が識別できる情報</li>
+									</ul>
+								</article>
+								<article class="box-body">
+									<h4>第3条（個人情報を収集・利用する目的</h4>
+									<p>当店が個人情報を収集・利用する目的は，以下のとおりです。</p>
+									<ul>
+										<li>ご注文及び商品発送の確認・照会など，当店サービスの提供・運営のため</li>
+										<li>お客様からのお問い合わせに回答するため（本人確認を行うことを含む）</li>
+										<li>新商品，更新情報，キャンペーン等及び当店が提供する他のサービスの案内のメール及び郵送物を送付するため</li>
+										<li>価格改定，重要なお知らせなど必要に応じたご連絡のため</li>
+										<li>利用規約に違反したお客様や，不正・不当な目的でサービスを利用しようとするお客様の特定をし，ご利用をお断りするため</li>
+										<li>お客様にご自身の登録情報の閲覧や変更，削除，ご利用状況の閲覧を行っていただくため</li>
+										<li>有料サービスにおいて，お客様に利用料金を請求するため</li>
+										<li>上記の利用目的に付随する目的</li>
+									</ul>
+								</article>
+								<article class="box-body">
+									<h4>第4条（個人情報の第三者提供）</h4>
+									<p>当店は，次に掲げる場合を除いて，あらかじめお客様の同意を得ることなく，第三者に個人情報を提供することはありません。ただし，個人情報保護法その他の法令で認められる場合を除きます。</p>
+									<ul>
+										<li>人の生命，身体または財産の保護のために必要がある場合であって，本人の同意を得ることが困難であるとき</li>
+										<li>公衆衛生の向上または児童の健全な育成の推進のために特に必要がある場合であって，本人の同意を得ることが困難であるとき</li>
+										<li>国の機関もしくは地方公共団体またはその委託を受けた者が法令の定める事務を遂行することに対して協力する必要がある場合であって，本人の同意を得ることにより当該事務の遂行に支障を及ぼすおそれがあるとき</li>
+										<li>予め次の事項を告知あるいは公表し，かつ当店が個人情報保護委員会に届出をしたとき</li>
+										<li>利用目的に第三者への提供を含むこと</li>
+										<li>第三者に提供されるデータの項目</li>
+										<li>第三者への提供の手段または方法</li>
+										<li>本人の求めに応じて個人情報の第三者への提供を停止すること</li>
+										<li>本人の求めを受け付ける方法</li>
+										<li>前項の定めにかかわらず，次に掲げる場合には，当該情報の提供先は第三者に該当しないものとします。</li>
+										<li>当店が利用目的の達成に必要な範囲内において個人情報の取扱いの全部または一部を委託する場合</li>
+										<li>合併その他の事由による事業の承継に伴って個人情報が提供される場合</li>
+										<li>個人情報を特定の者との間で共同して利用する場合であって，その旨並びに共同して利用される個人情報の項目，共同して利用する者の範囲，利用する者の利用目的および当該個人情報の管理について責任を有する者の氏名または名称について，あらかじめ本人に通知し，または本人が容易に知り得る状態に置いた場合</li>
+									</ul>
+								</article>
+								<article class="box-body">
+									<h4>第5条（個人情報の安全管理）</h4>
+									<p>お客様よりお預かりした個人情報の安全管理はサービス提供会社によって合理的、組織的、物理的、人的、技術的施策を講じるとともに、当店では関連法令に準じた適切な取扱いを行うことで個人データへの不正な侵入、個人情報の紛失、改ざん、漏えい等の危険防止に努めます。</p>
+								</article>
+								<article class="box-body">
+									<h4>第6条（個人情報の訂正および削除）</h4>
+									<p>お客様は，当店の保有する自己の個人情報が誤った情報である場合及び変更がある場合には，第10条の問合せ先より当店に対して個人情報の訂正，追加または削除（以下，「訂正等」といいます。）を請求することができます。当サービスにユーザー登録している場合においては，お客様自身で当サービスのメニュー「マイアカウント」より個人情報の訂正をするものとします。<br>
+										当店は，お客様から前項の請求を受けてその請求に応じる必要があると判断した場合には，遅滞なく，当該個人情報の訂正等を行うものとします。<br>
+										当店は，前項の規定に基づき訂正等を行った場合，または訂正等を行わない旨の決定をしたときは遅滞なく，これをお客様に通知します。<br>
+										訂正および削除により不要になった情報は，適切なタイミングで削除いたします。</p>
+								</article>
+								<article class="box-body">
+									<h4>第7条（プライバシーポリシーの変更）</h4>
+									<p>当店では，収集する個人情報，利用目的，その他本ポリシーの内容は，法令その他本ポリシーに別段の定めのある事項を除いて，お客様に通知することなく，変更することができるものとします。<br>
+										当店が別途定める場合を除いて，変更後のプライバシーポリシーは，当サービスに掲載したときから効力を生じるものとします。</p>
+								</article>
+								<article class="box-body">
+									<h4>第8条（cookie(クッキー)の使用について）</h4>
+									<p>当店は，お客様によりよいサービスを提供するため，cookie （クッキー）を使用することがありますが，これにより個人を特定できる情報の収集を行えるものではなく，お客様のプライバシーを侵害することはございません。<br>
+										cookie （クッキー）の受け入れを希望しない場合は，お客様自らブラウザの設定を変更することで受け入れを拒否するものとします。<br>
+										※cookie （クッキー）とは，サーバーコンピュータからお客様のブラウザに送信され，お客様が使用しているコンピュータのハードディスクに蓄積される情報を言います。</p>
+								</article>
+								<article class="box-body">
+									<h4>第9条（SSLの使用について）</h4>
+									<p>個人情報の入力時には，セキュリティ確保のため，これらの情報が傍受，妨害または改ざんされることを防ぐ目的でSSL（Secure Sockets Layer）技術を使用いたします。<br>
+										※ SSLは情報を暗号化することで，盗聴防止やデータの改ざん防止送受信する機能を言います。SSLを利用する事でより安全に情報を送信する事が可能となります。</p>
+								</article>
+								<article class="box-body">
+									<h4>第10条（お問い合わせ窓口）</h4>
+									<p>個本ポリシーに関するお問い合わせは，下記の窓口までお願いいたします。</p>
+									<ul>
+										<li>住所：〒670-0917　兵庫県姫路市忍町39</li>
+										<li>店名：蒲田商店</li>
+										<li>責任者：土田 由里</li>
+										<li>電話番号：079-258-7429（11:00〜16:30　定休日：水曜日、土日祝：不定休）</li>
+										<li>メールアドレス：info@kamada-shouten.jp</li>
+									</ul>
+								</article>
+								<div style="display: none;" class="item-body">{PrivacyContentsTag}</div>
+							</div>
+
+						</div>
+					</div>
+				</section>
+				{/block:PrivacyPage}
+				{block:LawPage}
+				<section class="legal-section">
+					<div class="law__inner">
+						<div class="law__content">
+
+							<div class="box">
+								<h3 class="box-title">配送・送料について</h3>
+								<article class="box-body">
+									<h4>・ヤマト運輸</h4>
+									<p>通常は以下の送料となります。<br>
+										じょうろや家具などの大きい商品は別途送料がかかる場合もございますのでご了承ください。</p>
+									<p>※購入金額16,500円以上のお客様は送料無料となります。<br>
+										（配送先が北海道・沖縄・離島の場合には、22,000円以上のご注文で送料無料とさせていただきます。またシステムの都合上、16,500円以上で送料0円と計算されますため、正式な送料はご注文確定後に別途メールにてご案内いたします。）</p>
+									<ul>
+										<li>北海道　1210円</li>
+										<li>東北：青森・岩手・宮城・秋田・山形・福島　880円</li>
+										<li>関東：茨城・栃木・群馬・埼玉・千葉・東京・山梨・神奈川　880円</li>
+										<li>信越：新潟・長野　880円</li>
+										<li>北陸：富山・石川・福井　880円</li>
+										<li>中部：岐阜・静岡・愛知・三重　880円</li>
+										<li>関西：滋賀・京都・大阪・兵庫・奈良・和歌山　880円</li>
+										<li>中国：鳥取・島根・岡山・広島・山口　990円</li>
+										<li>四国：徳島・香川・愛媛・高知　1100円</li>
+										<li>九州：福岡・佐賀・長崎・熊本・大分・宮崎・鹿児島　1210円</li>
+										<li>沖縄　1430円</li>
+									</ul>
+									<p>地域によって値段が異なります（税込）。<br>
+										※離島及び一部地域において別途ご負担いただきく場合がございます。</p>
+								</article>
+							</div>
+
+							<div class="box">
+								<h3 class="box-title">支払い方法</h3>
+								<article class="box-body">
+									<ul>
+									<li>・クレジットカード<br>
+									<img src="https://basefile.akamaized.net/kamada-base-ec/68f76135dfa4c/card_com.jpg"></li>
+									<li>・Amazon Pay</li>
+									<li>・商品代引き（ヤマト運輸）</li>
+									</ul>
+								</article>
+							</div>
+
+							<div class="box">
+								<h3 class="box-title">特定商取引法に関する表記</h3>
+								<article class="box-body">
+									<dl class="bo-sepa">
+										<dt>販売業者</dt>
+										<dd>蒲田商店</dd>
+									</dl>
+									<dl class="bo-sepa">
+										<dt>運営統括責任者名</dt>
+										<dd>土田由里</dd>
+									</dl>
+									<dl class="bo-sepa">
+										<dt>所在地</dt>
+										<dd>〒670-0917　兵庫県姫路市忍町39</dd>
+									</dl>
+									<dl class="bo-sepa">
+										<dt>お支払い方法</dt>
+										<dd>・クレジットカード決済<br>
+											・代金引換決済<br>
+											・銀行振込</dd>
+									</dl>
+									<dl class="bo-sepa">
+										<dt>支払時期</dt>
+										<dd>・クレジットカード決済：商品注文時にお支払いが確定します。<br>
+											・代金引換決済：商品到着時、配達員の方へ現金でお支払いください。<br>
+											・銀行振込決済：注文後7日以内にお支払いください。</dd>
+									</dl>
+									<dl class="bo-sepa">
+										<dt>商品代金以外の料金の説明</dt>
+										<dd>・消費税（10%）<br>
+											・送料（送料はお客様負担となります。配送方法、配送先毎に料金が異なります。詳細は、送料とお支払い方法についてのページをご覧ください。）<br>
+											・お支払方法に代金引換を選択された場合は、代金引換手数料<br>
+											・お支払方法に銀行振込の手数料を選択された場合は、お振込み時に銀行への振込み手数料はお客様でご負担ください。</dd>
+									</dl>
+									<dl class="bo-sepa">
+										<dt>販売可能数量</dt>
+										<dd>・１個から</dd>
+									</dl>
+									<dl class="bo-sepa">
+										<dt>商品引渡し時期</dt>
+										<dd>前払い（クレジットカード・銀行振込）：指定日がなければ入金確認後3営業日以内で発送いたします。<br>
+											代金引換決済：指定日がなければご注文確認後3日営業日以内で発送いたします。<br>
+											その他の支払方法：指定日がなければご注文後3日営業日以内で発送いたします。</dd>
+									</dl>
+									<dl class="bo-sepa">
+										<dt>商品発送・引渡し方法</dt>
+										<dd>当店指定業者にて速やかに発送・お渡しいたします。</dd>
+									</dl>
+									<dl class="bo-sepa">
+										<dt>申込の有効期限</dt>
+										<dd>ご注文日から7日以内にご入金を確認できなかった場合は、ご注文を取り消させていただきます。</dd>
+									</dl>
+									<dl class="bo-sepa">
+										<dt>不良品対応について</dt>
+										<dd><p>商品到着時に必ず商品をご確認ください。<br>
+											配送途中の破損などの事故がございましたら、速やかに当店までご連絡ください。</p>
+											<p>【返品時期】<br>
+											ご購入後日3営業日以内にご連絡があった場合に返金可能となります。<br>
+											※商品到着後3営業日以降のご連絡の場合、対応しかねます。</p>
+											<p>【返品方法】<br>
+											メールまたはお電話にて返金要請をお願いいたします。<br>
+											当店での内容確認完了後、3日以内にご購入代金を指定の口座へお振込みいたします。<br>
+											返品方法については別途メールにてご案内いたします。</p>
+											<p>【お客様都合での返品について】<br>
+												お客様都合での返品についてはお受けできません。ご了承ください。</p></dd>
+									</dl>
+									<dl class="bo-sepa">
+										<dt>返品送料・手数料</dt>
+										<dd>商品不良・商品誤配送の場合、当店にて負担いたします。</dd>
+									</dl>
+									<dl class="bo-sepa">
+										<dt>表現、及び商品に関する注意書き</dt>
+										<dd>当店では、手作りの商品を始め1点1点異なる味わいの商品も取り扱っています。商品に示された表現や再現性には個人差があり、必ずしもデザインやサイズを保証したものではございません。<br>
+											ご確認の上、あらかじめご注意ください。</dd>
+									</dl>
+									<dl class="bo-sepa">
+										<dt>サービス名</dt>
+										<dd>蒲田商店オンラインショップ</dd>
+									</dl>
+									<dl class="bo-sepa">
+										<dt>電話番号</dt>
+										<dd>079-258-7429<br>
+											（11:00〜16:30　定休日：水曜日、土日祝：不定休）</dd>
+									</dl>
+									<dl class="bo-sepa">
+										<dt>電話番号</dt>
+										<dd>info@kamada-shouten.jp</dd>
+									</dl>
+									<dl>
+										<dt>販売URL</dt>
+										<dd>https://kamada-shouten.shop</dd>
+									</dl>
+								</article>
+							</div>
+
+						</div>
+					</div>
+					<div style="display: none;" class="item-body">{LawContentsTag}</div>
+				</section>
+				{/block:LawPage}
+
+				{block:ContactPage}
+				<section class="legal-section contact">
+					<div class="contact__inner">
+						<div class="contact__content">
+							<h3 class="box-title">お問い合わせ</h3>
+							{ContactContentsTag}
+						</div>
+					</div>
+				</section>
+				{/block:ContactPage}
+			</div>
+		</main>
+
+
+
+		<footer class="footer">
+			<nav class="footer_nav">
+				<ul class="footer-nav">
+					<li><a href="{AboutPageURL}">店舗案内</a></li>
+					<li><a href="{ContactPageURL}">お問い合わせ</a></li>
+					<!-- <li><a href="/guide">ショッピングガイド</a></li> -->
+					<li><a href="{PrivacyPageURL}">プライバシーポリシー</a></li>
+					<li><a href="{LawPageURL}">特定商取引に関する表示</a></li>
+				</ul>
+			</nav>
+			<div class="footer__inner">
+				<div class="shop_info">
+					<h2 class="shop_name"><img src="https://basefile.akamaized.net/kamada-base-ec/68f4c3080a2ff/footer_logo.png" alt="蒲田商店"></h2>
+					<p class="address">〒759-4103<br>
+					山口県長門市深川湯本1260-1</p>
+					<p class="tel">TEL：070-2356-5102</p>
+					<p class="email">MAIL：info@kamada-shouten.jp</p>
+					<i class="footer_sns">
+						<a href="https://www.instagram.com/{ShopInstagramId}/"><img src="https://basefile.akamaized.net/kamada-base-ec/68f4c2f469491/insta_logo.png" alt="Instagram"></a>
+					</i>
+				</div>
+				<i class="footer_sns nondisplay_sp">
+					<a href="https://www.instagram.com/{ShopInstagramId}/"><img src="https://basefile.akamaized.net/kamada-base-ec/68f4c0ac58fa3/ins_i.png" alt="Instagram"></a>
+				</i>
+				<p class="copy">Copyright &copy; 2025 蒲田商店</p>
+			</div>
+		</footer>
+
+	</div>
+
+	{block:AppsSearch}
+	<script>
+			$(function(){
+					var _color = $('#x_iconSearch').css('color');
+					$('#x_itemSearchForm').css('border-color' , _color);
+			});
+	</script>
+	{/block:AppsSearch}
+	<script>
+	document.addEventListener('DOMContentLoaded', () => {
+		const path = window.location.pathname;
+		const contents = document.querySelector('.contents');
+		if (!contents) return; // 念のため安全対策
+
+		if (path === '/' || path === '/index.html') {
+			contents.classList.add('top');
+		} else if (path.includes('/about')) {
+			contents.classList.add('about');
+		} else if (path.includes('/privacy')) {
+			contents.classList.add('privacy');
+		} else if (path.includes('/law')) {
+			contents.classList.add('law');
+		} else {
+			contents.classList.add('other');
+		}
+	});
+	</script>
+</body>
+</html>
+{/block:NotLoadItemsPage}
+{block:LoadItemsPage}
+{block:Items}
+		<div class="item part">
+				<div class="itemImg">
+						<a href="{ItemPageURL}">
+								{block:AppsItemLabel}
+										{AppsItemLabelTag}
+								{/block:AppsItemLabel}
+								<img src="{block:ItemImage1}{ItemImage1URL-300}{/block:ItemImage1}{block:NoItemImage1}{ItemNoImageURL}{/block:NoItemImage1}" alt="{ItemTitle}" title="{ItemTitle}" class="image-resize">
+								{block:ItemNowOnSale}{block:NoItemStock}
+										<div class="soldout_cover"><p>SOLD OUT</p></div>
+								{/block:NoItemStock}{/block:ItemNowOnSale}
+								{block:ItemEndOfSale}
+										<div class="soldout_cover"><p>SOLD OUT</p></div>
+								{/block:ItemEndOfSale}
+						</a>
+				</div>
+				<a href="{ItemPageURL}">
+						<div class="itemTitle">
+								<h2>{ItemTitle}</h2>
+						</div>
+						<ul class="itemDetail">
+								{block:NoItemProperPrice}
+										<li class="itemPrice">{ItemPrice}</li>
+								{/block:NoItemProperPrice}
+								{block:HasItemProperPrice}
+										<li class="discountPrice">
+												<span class="discountPrice__ratio">{ItemDiscountRate}</span>
+												<span class="discountPrice__calcPrice">{ItemPrice}</span>
+										</li>
+								{/block:HasItemProperPrice}
+						</ul>
+						{block:HasItemStock}
+								{block:ItemWatingForSale}
+										<p class="comingSoon">COMING SOON</p>
+								{/block:ItemWatingForSale}
+								{block:ItemNowOnSale}{block:ItemPreOrder}
+										<p class="preOrder">{lang:PreOrderItem}</p>
+								{/block:ItemPreOrder}{block:ItemLottery}
+										<p class="lottery">{lang:LotteryItem}</p>
+								{/block:ItemLottery}{block:ItemTakeout}
+										<p class="takeout">{lang:TakeoutItem}</p>
+								{/block:ItemTakeout}{block:ItemCommunityLimited}
+										<p class="community">{lang:CommunityLimitedItem}</p>
+								{/block:ItemCommunityLimited}{/block:ItemNowOnSale}
+						{/block:HasItemStock}
+						{block:NoItemStock}
+								{block:ItemWatingForSale}
+										<p class="comingSoon">COMING SOON</p>
+								{/block:ItemWatingForSale}
+						{/block:NoItemStock}
+				</a>
+		</div>
+{/block:Items}
+{/block:LoadItemsPage}
+{block:AppsSearch}
+<script>
+		$(function(){
+				var _color = $('#x_iconSearch').css('color');
+				$('#x_itemSearchForm').css('border-color' , _color);
+		});
+</script>
+{/block:AppsSearch}

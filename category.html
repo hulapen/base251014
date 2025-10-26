@@ -1,0 +1,55 @@
+{% extends 'layout' %}
+
+{% block content %}
+<div class="category-header">
+	<h3 class="category-title">{{ collection.name }}</h3>
+	{% if collection.sub_collections %}
+		<ul class="subcategory-list">
+			{% for sub in collection.sub_collections %}
+				<li><a href="#{{ sub.handle }}">{{ sub.name }}</a></li>
+			{% endfor %}
+		</ul>
+	{% endif %}
+</div>
+<section class="category">
+	<div class="category-content">
+		{% for sub in collection.sub_collections %}
+			<h2 id="{{ sub.handle }}" class="subcategory-title">{{ sub.name }}</h2>
+			<ul class="product-list">
+				{% for item in sub.items %}
+				<li class="product-item">
+					<a href="{{ item.url }}">
+						<img src="{{ item.main_image | img_url: '600x600' }}" alt="{{ item.name }}">
+						{% assign artist = "" %}
+						{% assign brand = "" %}
+						{% assign maker = "" %}
+
+						{% for tag in item.tags %}
+							{% if tag contains '作家_' %}
+								{% assign artist = tag | remove: '作家_' %}
+							{% elsif tag contains 'ブランド_' %}
+								{% assign brand = tag | remove: 'ブランド_' %}
+							{% elsif tag contains 'メーカー_' %}
+								{% assign maker = tag | remove: 'メーカー_' %}
+							{% endif %}
+						{% endfor %}
+
+						{% if artist != "" %}
+							<p class="product-artist">{{ artist }}</p>
+						{% endif %}
+						{% if brand != "" %}
+							<p class="product-brand">{{ brand }}</p>
+						{% endif %}
+						{% if maker != "" %}
+							<p class="product-maker">{{ maker }}</p>
+						{% endif %}
+						<p class="product-name">{{ item.name }}</p>
+						<p class="product-price">¥{{ item.price | number_with_delimiter }}</p>
+					</a>
+					</li>
+				{% endfor %}
+			</ul>
+		{% endfor %}
+	</div>
+</section>
+{% endblock %}

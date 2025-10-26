@@ -1,30 +1,106 @@
 {% extends 'layout' %}
 
 {% block content %}
-<article class="item-detail">
-  <div class="item-detail__inner">
-    <h1 class="item-detail__title">{{ item.name }}</h1>
+<section class="legal-section item">
+	<div class="item-detail__inner">
+		<nav class="breadcrumb" aria-label="breadcrumb">
+			<ul>
+				<li><a href="/">HOME</a></li>
 
-    <div class="item-detail__image">
-      <img src="{{ item.main_image | img_url: '800x800' }}" alt="{{ item.name }}">
-    </div>
+				{%- comment -%} カテゴリ系パンくず {%- endcomment -%}
+				{% if collection %}
+					<li><a href="{{ collection.url }}">{{ collection.name }}</a></li>
+					<li aria-current="page">{{ item.name }}</li>
+				{% endif %}
 
-    <div class="item-detail__info">
-      <p class="item-detail__price">¥{{ item.price | number_with_delimiter }}</p>
+				{%- comment -%} タグ系パンくず（作家／ブランド／メーカー） {%- endcomment -%}
+				{% assign artist_tags = '' %}
+				{% assign brand_tags = '' %}
+				{% assign maker_tags = '' %}
 
-      {% if item.stock > 0 %}
-        <form action="{{ item.cart_url }}" method="post">
-          <input type="hidden" name="item_id" value="{{ item.id }}">
-          <button type="submit" class="btn-cart">カートに入れる</button>
-        </form>
-      {% else %}
-        <p class="soldout">SOLD OUT</p>
-      {% endif %}
+				{% for tag in item.tags %}
+					{% if tag contains '作家_' %}
+						{% assign artist_tags = artist_tags | append: tag | append: ',' %}
+					{% elsif tag contains 'ブランド_' %}
+						{% assign brand_tags = brand_tags | append: tag | append: ',' %}
+					{% elsif tag contains 'メーカー_' %}
+						{% assign maker_tags = maker_tags | append: tag | append: ',' %}
+					{% endif %}
+				{% endfor %}
 
-      <div class="item-detail__desc">
-        {{ item.description }}
-      </div>
-    </div>
-  </div>
-</article>
+				{% assign artist_array = artist_tags | split: ',' %}
+				{% assign brand_array = brand_tags | split: ',' %}
+				{% assign maker_array = maker_tags | split: ',' %}
+
+				{%- comment -%} 作家複数対応 {%- endcomment -%}
+				{% for a in artist_array %}
+					{% if a != "" %}
+						{% assign artist_name = a | remove: '作家_' %}
+						<ul>
+							<li><a href="/">HOME</a></li>
+							<li><a href="/tags/{{ a | url_encode }}">作家・ブランド・メーカー別</a></li>
+							<li><a href="/tags/{{ a | url_encode }}">作家</a></li>
+							<li><a href="/tags/{{ a | url_encode }}">{{ artist_name }}</a></li>
+							<li aria-current="page">{{ item.name }}</li>
+						</ul>
+					{% endif %}
+				{% endfor %}
+
+				{%- comment -%} ブランド複数対応 {%- endcomment -%}
+				{% for b in brand_array %}
+					{% if b != "" %}
+						{% assign brand_name = b | remove: 'ブランド_' %}
+						<ul>
+							<li><a href="/">HOME</a></li>
+							<li><a href="/tags/{{ b | url_encode }}">作家・ブランド・メーカー別</a></li>
+							<li><a href="/tags/{{ b | url_encode }}">ブランド</a></li>
+							<li><a href="/tags/{{ b | url_encode }}">{{ brand_name }}</a></li>
+							<li aria-current="page">{{ item.name }}</li>
+						</ul>
+					{% endif %}
+				{% endfor %}
+
+				{%- comment -%} メーカー複数対応 {%- endcomment -%}
+				{% for m in maker_array %}
+					{% if m != "" %}
+						{% assign maker_name = m | remove: 'メーカー_' %}
+						<ul>
+							<li><a href="/">HOME</a></li>
+							<li><a href="/tags/{{ m | url_encode }}">作家・ブランド・メーカー別</a></li>
+							<li><a href="/tags/{{ m | url_encode }}">メーカー</a></li>
+							<li><a href="/tags/{{ m | url_encode }}">{{ maker_name }}</a></li>
+							<li aria-current="page">{{ item.name }}</li>
+						</ul>
+					{% endif %}
+				{% endfor %}
+			</ul>
+		</nav>
+		<div class="box">
+			<figure class="item-detail__image">
+				<img src="{{ item.main_image | img_url: '800x800' }}" alt="{{ item.name }}">
+			</figure>
+
+			<div class="item-detail__info">
+				<h3 class="item-detail__title">{{ item.name }}</h3>
+				<p class="item-detail__price">¥{{ item.price | number_with_delimiter }}</p>
+
+				{% if item.stock > 0 %}
+					<form action="{{ item.cart_url }}" method="post">
+						<input type="hidden" name="item_id" value="{{ item.id }}">
+						<button type="submit" class="btn-cart">カートに入れる</button>
+					</form>
+				{% else %}
+					<p class="soldout">SOLD OUT</p>
+				{% endif %}
+			</div>
+		</div>
+	</div>
+	<article class="item-detail__desc">
+		<p class="ccopy">毎日のように活躍中。我が家の定番「ambaiの雪平鍋」</p>
+		<div class="item_inner">
+			<!-- {{ item.description }} -->
+		</div>
+	</article>
+</section>
+
 {% endblock %}

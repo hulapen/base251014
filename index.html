@@ -3,19 +3,20 @@
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width,initial-scale=1.0" />
-		<title>ショップタイトル | BASE</title>
-		<link rel="stylesheet" href="css/style.css" />
+		<title>蒲田商店 | BASE</title>
+		<link rel="stylesheet" href="https://basefile.akamaized.net/kamada-base-ec/68f4c01977867/style_v1.css" />
+		<link rel="stylesheet" href="https://basefile.akamaized.net/kamada-base-ec/68f4c034ec47a/swiper-bundle.min.css" />
 	</head>
 
 	<body>
 		<header class="site-header">
 			<div class="header__logo">
-				<a href="/"><img src="images/logo_m.png"></a>
+				<a href="/"><img src="https://basefile.akamaized.net/kamada-base-ec/68f4c13d8d56d/logo_m.png"></a>
 				<!-- <a href="/"><img src="{{ 'logo_m.png' | asset_url }}"></a> -->
 			</div>
 			<div class="header__inner">
 				<h1 class="header__title">
-					<a href="/"><img src="images/logo.png"></a>
+					<a href="/"><img src="https://basefile.akamaized.net/kamada-base-ec/68f4c11061c2d/logo.png"></a>
 					<!-- <a href="/"><img src="{{ 'logo.png' | asset_url }}"></a> -->
 				</h1>
 				<nav class="site-nav">
@@ -27,48 +28,93 @@
 			</div>
 			<nav class="header__sns">
 				<ul>
-					<li><a href="/items"><img src="images/login_i.png"></a></li>
-					<li><a href="/items"><img src="images/cart_i.png"></a></li>
-					<li><a href="/contact"><img src="images/ins_i.png"></a></li>
+					<li><a href="/items"><img src="https://basefile.akamaized.net/kamada-base-ec/68f4c08c570a3/login_i.png"></a></li>
+					<li><a href="/items"><img src="https://basefile.akamaized.net/kamada-base-ec/68f4c0697111e/cart_i.png"></a></li>
+					<li class="nondisplay_sp"><a href="/contact"><img src="https://basefile.akamaized.net/kamada-base-ec/68f4c0ac58fa3/ins_i.png"></a></li>
 					<!-- <li><a href="/items"><img src="{{ 'login_i.png' | asset_url }}"></a></li>
 					<li><a href="/items"><img src="{{ 'cart_i.png' | asset_url }}"></a></li>
 					<li><a href="/contact"><img src="{{ 'ins_i.png' | asset_url }}"></a></li> -->
 				</ul>
 			</nav>
+			<div class="menu-toggle">
+				<img src="https://basefile.akamaized.net/kamada-base-ec/68f4c0d6e33b7/menu_i.png" alt="メニュー" class="menu-icon">
+				<img src="https://basefile.akamaized.net/kamada-base-ec/68f4c0ee9b697/close_i.png" alt="閉じる" class="close-icon">
+			</div>
+			<nav class="sp-nav">
+				<div class="sp-left-column">
+					<div class="search_box">
+						<button><img src="https://basefile.akamaized.net/kamada-base-ec/68f4c205055fd/search_g.png"></button>
+						<input type="text" placeholder="Search">
+					</div>
+					<ul class="category-list">
+						<li><a href="#">台所道具</a></li>
+						<li><a href="#">食卓道具</a></li>
+						<li><a href="#">掃除道具</a></li>
+						<li><a href="#">洗濯道具</a></li>
+						<li><a href="#">インテリア</a></li>
+						<!-- {% assign artist_tags = '' %}
+						{% assign brand_tags = '' %}
+						{% assign maker_tags = '' %}
+
+						{% for tag in all_tags %}
+							{% if tag contains '作家_' %}
+								{% assign artist_tags = artist_tags | append: tag | append: ',' %}
+							{% elsif tag contains 'ブランド_' %}
+								{% assign brand_tags = brand_tags | append: tag | append: ',' %}
+							{% elsif tag contains 'メーカー_' %}
+								{% assign maker_tags = maker_tags | append: tag | append: ',' %}
+							{% endif %}
+						{% endfor %}
+
+						{% assign artist_array = artist_tags | split: ',' %}
+						{% assign brand_array = brand_tags | split: ',' %}
+						{% assign maker_array = maker_tags | split: ',' %} -->
+
+						<li class="dropdown">
+							<a href="#" class="dropdown-toggle">作家・ブランド・メーカー別 ▼</a>
+							<ul class="dropdown-menu">
+								{% if artist_array.size > 0 %}
+									<li class="sub-heading">作家</li>
+									{% for tag in artist_array %}
+										{% if tag != "" %}
+											{% assign name = tag | remove: '作家_' %}
+											<li><a href="/tags/{{ tag | url_encode }}">{{ name }}</a></li>
+										{% endif %}
+									{% endfor %}
+								{% endif %}
+
+								{% if brand_array.size > 0 %}
+									<li class="sub-heading">ブランド</li>
+									{% for tag in brand_array %}
+										{% if tag != "" %}
+											{% assign name = tag | remove: 'ブランド_' %}
+											<li><a href="/tags/{{ tag | url_encode }}">{{ name }}</a></li>
+										{% endif %}
+									{% endfor %}
+								{% endif %}
+
+								{% if maker_array.size > 0 %}
+									<li class="sub-heading">メーカー</li>
+									{% for tag in maker_array %}
+										{% if tag != "" %}
+											{% assign name = tag | remove: 'メーカー_' %}
+											<li><a href="/tags/{{ tag | url_encode }}">{{ name }}</a></li>
+										{% endif %}
+									{% endfor %}
+								{% endif %}
+							</ul>
+						</li>
+					</ul>
+				</div>
+			</nav>
 		</header>
-
-
 
 		<div class="contents">
 
-
-
-			<section class="kv">
-				<div class="swiper">
-					<div class="swiper-wrapper">
-						<div class="swiper-slide">
-							<img src="{{ 'kv01.jpg' | asset_url }}" alt="メインビジュアル1">
-						</div>
-						<div class="swiper-slide">
-							<img src="{{ 'kv02.jpg' | asset_url }}" alt="メインビジュアル2">
-						</div>
-						<div class="swiper-slide">
-							<img src="{{ 'kv03.jpg' | asset_url }}" alt="メインビジュアル3">
-						</div>
-					</div>
-					<!-- ナビゲーション（必要に応じて） -->
-					<div class="swiper-pagination"></div>
-					<div class="swiper-button-prev"></div>
-					<div class="swiper-button-next"></div>
-				</div>
-			</section>
-
-
-
 			<main class="main">
-				<div class="left_column">
+				<div class="left_column nondisplay_sp">
 					<form action="/search" method="get" class="search_box">
-						<button type="submit"><img src="images/search_i.png"></button>
+						<button type="submit"><img src="https://basefile.akamaized.net/kamada-base-ec/68f4c22f0fbb9/search_i.png"></button>
 						<input type="text" name="q" placeholder="　Search　">
 					</form>
 
@@ -83,51 +129,243 @@
 									<a href="#">台所用品</a>
 								</li>
 							{% endfor %}
+						<!-- {% assign artist_tags = '' %}
+						{% assign brand_tags = '' %}
+						{% assign maker_tags = '' %}
+
+						{% for tag in all_tags %}
+							{% if tag contains '作家_' %}
+								{% assign artist_tags = artist_tags | append: tag | append: ',' %}
+							{% elsif tag contains 'ブランド_' %}
+								{% assign brand_tags = brand_tags | append: tag | append: ',' %}
+							{% elsif tag contains 'メーカー_' %}
+								{% assign maker_tags = maker_tags | append: tag | append: ',' %}
+							{% endif %}
+						{% endfor %}
+
+						{% assign artist_array = artist_tags | split: ',' %}
+						{% assign brand_array = brand_tags | split: ',' %}
+						{% assign maker_array = maker_tags | split: ',' %} -->
+
+						<li class="dropdown">
+							<a href="#" class="dropdown-toggle">作家・ブランド・メーカー別</a>
+							<ul class="dropdown-menu">
+								{% if artist_array.size > 0 %}
+									<li class="sub-heading">作家</li>
+									{% for tag in artist_array %}
+										{% if tag != "" %}
+											{% assign name = tag | remove: '作家_' %}
+											<li><a href="/tags/{{ tag | url_encode }}">{{ name }}</a></li>
+										{% endif %}
+									{% endfor %}
+								{% endif %}
+
+								{% if brand_array.size > 0 %}
+									<li class="sub-heading">ブランド</li>
+									{% for tag in brand_array %}
+										{% if tag != "" %}
+											{% assign name = tag | remove: 'ブランド_' %}
+											<li><a href="/tags/{{ tag | url_encode }}">{{ name }}</a></li>
+										{% endif %}
+									{% endfor %}
+								{% endif %}
+
+								{% if maker_array.size > 0 %}
+									<li class="sub-heading">メーカー</li>
+									{% for tag in maker_array %}
+										{% if tag != "" %}
+											{% assign name = tag | remove: 'メーカー_' %}
+											<li><a href="/tags/{{ tag | url_encode }}">{{ name }}</a></li>
+										{% endif %}
+									{% endfor %}
+								{% endif %}
+							</ul>
+						</li>
 						</ul>
 					</aside>
 				</div>
 
-
-
 				<div class="right_column">
-					<section class="products">
-						<div class="products__inner">
-							<h2 class="section-title">Pick Up / New Arrival</h2>
-							<ul class="product-list">
-								<li class="product-item">
-									<a href="#">
-										<img src="{{ item.main_image | img_url: '410x410' }}" alt="{{ item.name }}">
-										<p class="product-name">{{ item.name }}</p>
-										<p class="product-price">¥{{ item.price | number_with_delimiter }}</p>
-									</a>
-								</li>
-								<!-- {% for item in items limit: 24 %}
-								<li class="product-item">
-									<a href="{{ item.url }}">
-										<img src="{{ item.main_image | img_url: '410x410' }}" alt="{{ item.name }}">
-										<p class="product-name">{{ item.name }}</p>
-										<p class="product-price">¥{{ item.price | number_with_delimiter }}</p>
-									</a>
-								</li>
-								{% endfor %} -->
-							</ul>
-							<div class="view-all">
-								<a href="/items" class="btn-cart">すべての商品を見る</a>
-							</div>
-						</div>
-					</section>
+<div class="category-header">
+	<h3 class="category-title">台所道具</h3>
+		<ul class="subcategory-list">
+				<li><a href="#{{ sub.handle }}">鍋・フライパン・蓋・せいろ</a></li>
+				<li><a href="#{{ sub.handle }}">薬缶</a></li>
+				<li><a href="#{{ sub.handle }}">薬缶</a></li>
+				<li><a href="#{{ sub.handle }}">薬缶</a></li>
+				<li><a href="#{{ sub.handle }}">薬缶</a></li>
+				<li><a href="#{{ sub.handle }}">鍋・フライパン・蓋・せいろ</a></li>
+				<li><a href="#{{ sub.handle }}">鍋・フライパン・蓋・せいろ</a></li>
+				<li><a href="#{{ sub.handle }}">鍋・フライパン・蓋・せいろ</a></li>
+				<li><a href="#{{ sub.handle }}">鍋・フライパン・蓋・せいろ</a></li>
+				<li><a href="#{{ sub.handle }}">鍋・フライパン・蓋・せいろ</a></li>
+		</ul>
+	<!-- <h3 class="category-title">{{ collection.name }}</h3>
+	{% if collection.sub_collections %}
+		<ul class="subcategory-list">
+			{% for sub in collection.sub_collections %}
+				<li><a href="#{{ sub.handle }}">{{ sub.name }}</a></li>
+			{% endfor %}
+		</ul>
+	{% endif %} -->
+</div>
+<section class="legal-section item">
+	<div class="item-detail__inner">
+		<nav class="breadcrumb" aria-label="breadcrumb">
+			<ul>
+				<li><a href="/">HOME</a></li>
+
+				{%- comment -%} カテゴリ系パンくず {%- endcomment -%}
+				{% if collection %}
+					<li><a href="{{ collection.url }}">{{ collection.name }}</a></li>
+					<li aria-current="page">{{ item.name }}</li>
+				{% endif %}
+
+				{%- comment -%} タグ系パンくず（作家／ブランド／メーカー） {%- endcomment -%}
+				{% assign artist_tags = '' %}
+				{% assign brand_tags = '' %}
+				{% assign maker_tags = '' %}
+
+				{% for tag in item.tags %}
+					{% if tag contains '作家_' %}
+						{% assign artist_tags = artist_tags | append: tag | append: ',' %}
+					{% elsif tag contains 'ブランド_' %}
+						{% assign brand_tags = brand_tags | append: tag | append: ',' %}
+					{% elsif tag contains 'メーカー_' %}
+						{% assign maker_tags = maker_tags | append: tag | append: ',' %}
+					{% endif %}
+				{% endfor %}
+
+				{% assign artist_array = artist_tags | split: ',' %}
+				{% assign brand_array = brand_tags | split: ',' %}
+				{% assign maker_array = maker_tags | split: ',' %}
+
+				{%- comment -%} 作家複数対応 {%- endcomment -%}
+				{% for a in artist_array %}
+					{% if a != "" %}
+						{% assign artist_name = a | remove: '作家_' %}
+						<ul>
+							<li><a href="/">HOME</a></li>
+							<li><a href="/tags/{{ a | url_encode }}">作家・ブランド・メーカー別</a></li>
+							<li><a href="/tags/{{ a | url_encode }}">作家</a></li>
+							<li><a href="/tags/{{ a | url_encode }}">{{ artist_name }}</a></li>
+							<li aria-current="page">{{ item.name }}</li>
+						</ul>
+					{% endif %}
+				{% endfor %}
+
+				{%- comment -%} ブランド複数対応 {%- endcomment -%}
+				{% for b in brand_array %}
+					{% if b != "" %}
+						{% assign brand_name = b | remove: 'ブランド_' %}
+						<ul>
+							<li><a href="/">HOME</a></li>
+							<li><a href="/tags/{{ b | url_encode }}">作家・ブランド・メーカー別</a></li>
+							<li><a href="/tags/{{ b | url_encode }}">ブランド</a></li>
+							<li><a href="/tags/{{ b | url_encode }}">{{ brand_name }}</a></li>
+							<li aria-current="page">{{ item.name }}</li>
+						</ul>
+					{% endif %}
+				{% endfor %}
+
+				{%- comment -%} メーカー複数対応 {%- endcomment -%}
+				{% for m in maker_array %}
+					{% if m != "" %}
+						{% assign maker_name = m | remove: 'メーカー_' %}
+						<ul>
+							<li><a href="/">HOME</a></li>
+							<li><a href="/tags/{{ m | url_encode }}">作家・ブランド・メーカー別</a></li>
+							<li><a href="/tags/{{ m | url_encode }}">メーカー</a></li>
+							<li><a href="/tags/{{ m | url_encode }}">{{ maker_name }}</a></li>
+							<li aria-current="page">{{ item.name }}</li>
+						</ul>
+					{% endif %}
+				{% endfor %}
+			</ul>
+		</nav>
+		<div class="box">
+			<div class="swiper swiper-main item-detail__image">
+				<div class="swiper-wrapper">
+					<div class="swiper-slide"><img src="images/item_image01.jpg" alt="メインビジュアル1"></div>
+					<div class="swiper-slide"><img src="images/item_image01.jpg" alt="メインビジュアル2"></div>
+					<div class="swiper-slide"><img src="images/item_image01.jpg" alt="メインビジュアル3"></div>
+				</div>
+			</div>
+			<!-- <figure class="item-detail__image">
+				<img src="{{ item.main_image | img_url: '800x800' }}" alt="{{ item.name }}">
+			</figure> -->
+			<!-- サムネ（Swiperサブ） -->
+			<div class="swiper swiper-thumbs">
+				<div class="swiper-wrapper">
+					<div class="swiper-slide"><img src="images/item_image01.jpg" alt="サムネ1"></div>
+					<div class="swiper-slide"><img src="images/item_image01.jpg" alt="サムネ2"></div>
+					<div class="swiper-slide"><img src="images/item_image01.jpg" alt="サムネ3"></div>
+				</div>
+			</div>
+
+			<div class="item-detail__info">
+				<h3 class="item-detail__title">{{ item.name }}</h3>
+				<p class="item-detail__price">¥{{ item.price | number_with_delimiter }}</p>
+
+				{% if item.stock > 0 %}
+					<form action="{{ item.cart_url }}" method="post">
+						<input type="hidden" name="item_id" value="{{ item.id }}">
+						<button type="submit" class="btn-cart">カートに入れる</button>
+					</form>
+				{% else %}
+					<p class="soldout">SOLD OUT</p>
+				{% endif %}
+			</div>
+		</div>
+	</div>
+	<article class="item-detail__desc">
+		<p class="ccopy">毎日のように活躍中。我が家の定番「ambaiの雪平鍋」</p>
+		<div class="item_inner">
+			<!-- {{ item.description }} -->
+		</div>
+	</article>
+	
+<iframe 
+src="https://www.youtube.com/embed/nHFuqbtdjbw" 
+title="YouTube video player" 
+frameborder="0" 
+allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+allowfullscreen>
+</iframe>
+</section>
 				</div>
 			</main>
 
-
-
 			<footer class="footer">
+				<nav class="footer_nav">
+					<ul>
+						<li><a href="#">店舗案内</a></li>
+						<li><a href="#">お問い合わせ</a></li>
+						<li><a href="#">ショッピングガイド</a></li>
+						<li><a href="#">プライバシーポリシー</a></li>
+						<li><a href="#">特定商取引に関する表示</a></li>
+					</ul>
+				</nav>
 				<div class="footer__inner">
-					<small>© 2025 蒲田商店</small>
+					<div class="shop_info">
+						<h2 class="shop_name"><img src="https://basefile.akamaized.net/kamada-base-ec/68f4c3080a2ff/footer_logo.png"></h2>
+						<p class="address">〒759-4103<br>
+						山口県長門市深川湯本1260-1</p>
+						<p class="tel">TEL：070-2356-5102</p>
+						<p class="email">MAIL：info@kamada-shouten.jp</p>
+						<i class="footer_sns">
+							<a href=""><img src="https://basefile.akamaized.net/kamada-base-ec/68f4c2f469491/insta_logo.png" /></a>
+						</i>
+					</div>
+					<i class="footer_sns nondisplay_sp">
+						<a href=""><img src="https://basefile.akamaized.net/kamada-base-ec/68f4c0ac58fa3/ins_i.png" /></a>
+					</i>
+					<p class="copy">Copyright &copy; 2025 蒲田商店</p>
 				</div>
 			</footer>
 
 		</div>
-		<script src="js/script.js"></script>
+		<script src="https://basefile.akamaized.net/kamada-base-ec/68f4b87a53a44/script_v1.js"></script>
+		<script src="https://basefile.akamaized.net/kamada-base-ec/68f4be1a33b83/swiper-bundle.min.js"></script>
 	</body>
 </html>
